@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstaResume.WebSite", "InstaResume.WebSite\InstaResume.WebSite.csproj", "{94DA6F6C-1AF9-4FD3-A605-9B61F3C71208}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstaResume.WebApi", "InstaResume.WebApi\InstaResume.WebApi.csproj", "{94DA6F6C-1AF9-4FD3-A605-9B61F3C71208}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
