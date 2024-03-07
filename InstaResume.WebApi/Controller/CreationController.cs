@@ -4,7 +4,7 @@ namespace InstaResume.WebSite.Controller;
 
 [ApiController]
 [Route("[controller]")]
-public class HealthController : ControllerBase
+public class CreationController : ControllerBase
 {
     [HttpGet]
     public ActionResult Get()
