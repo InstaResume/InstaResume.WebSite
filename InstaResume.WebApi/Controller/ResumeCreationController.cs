@@ -4,11 +4,11 @@ namespace InstaResume.WebSite.Controller;
 
 [ApiController]
 [Route("[controller]")]
-public class CreationController : ControllerBase
+public class ResumeCreationController
 {
     [HttpGet]
-    public ActionResult Get()
+    public IResult Get()
     {
-        return Ok();
+        return Results.Ok();
     }
 }
