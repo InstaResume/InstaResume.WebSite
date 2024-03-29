@@ -1,10 +1,20 @@
 using System.Security.Claims;
+using InstaResume.WebSite.Configuration;
+using InstaResume.WebSite.Service;
+using InstaResume.WebSite.Service.Interface;
 using InstaResume.WebSite.Utils;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddAuthentication().AddBearerToken();
+builder.Services.AddAuthentication()
+    .AddBearerToken()
+    .AddGoogle(googleOptions =>
+    {
+        var config = new ConfigHelper(builder.Configuration);
+        googleOptions.ClientId = config.GetGoogleAuthConfig().ClientId;
+        googleOptions.ClientSecret = config.GetGoogleAuthConfig().ClientSecret;
+    });
 builder.Services.AddAuthorization();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllers();
@@ -27,6 +37,7 @@ builder.Services.AddSwaggerGen(options =>
     options.OperationFilter<SecurityRequirementsOperationFilter>();
 });
 builder.Services.AddSingleton<ClaimsPrincipal>();
+builder.Services.AddSingleton<IAuthService, AuthService>();
 
 var app = builder.Build();
 
