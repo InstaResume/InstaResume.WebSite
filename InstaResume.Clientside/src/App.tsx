@@ -7,10 +7,11 @@ import {
   ThemeProvider,
   createTheme,
 } from "@mui/material";
+import { getTheme } from "./utils/ThemeProvider";
 
 const App = () => {
   const [mode, setMode] = React.useState<PaletteMode>("light");
-  const theme = createTheme({ palette: { mode } });
+  const theme = createTheme(getTheme(mode));
 
   const toggleColorMode = () => {
     setMode((prev) => (prev === "dark" ? "light" : "dark"));
