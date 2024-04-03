@@ -8,11 +8,9 @@ import {
 } from "@mui/material";
 import React from "react";
 
-console.log("Home.tsx");
 const Home: React.FC = () => {
   return (
     <Box
-      id="hero"
       sx={(theme) => ({
         width: "100%",
         backgroundImage:

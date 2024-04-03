@@ -93,13 +93,15 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
                 px: 0,
               }}
             >
-              <img
-                src={
-                  "https://assets-global.website-files.com/61ed56ae9da9fd7e0ef0a967/61f12e6faf73568658154dae_SitemarkDefault.svg"
-                }
-                style={logoStyle}
-                alt="InstaResume Logo"
-              />
+              <Link to="/">
+                <img
+                  src={
+                    "https://assets-global.website-files.com/61ed56ae9da9fd7e0ef0a967/61f12e6faf73568658154dae_SitemarkDefault.svg"
+                  }
+                  style={logoStyle}
+                  alt="InstaResume Logo"
+                />
+              </Link>
               <Box sx={{ display: { xs: "none", md: "flex" } }}>
                 <MenuItem
                   onClick={() => scrollToSection("templates")}
@@ -208,7 +210,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
                       href="/resume-creation"
                       sx={{ width: "100%" }}
                     >
-                      Sign in
+                      Create Resume
                     </Button>
                   </MenuItem>
                 </Box>
