@@ -6,13 +6,24 @@ import {
   Divider,
   Drawer,
   MenuItem,
+  PaletteMode,
   Toolbar,
   Typography,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import React, { useState } from "react";
+import ToggleColorMode from "../ToggleColorMode/ToggleColorMode";
+import { Link } from "react-router-dom";
 
-const NavigationBar: React.FC = () => {
+interface NavigationBarProps {
+  mode: PaletteMode;
+  toggleColorMode: () => void;
+}
+
+const NavigationBar: React.FC<NavigationBarProps> = ({
+  mode,
+  toggleColorMode,
+}) => {
   const [open, setOpen] = useState(false);
 
   const toggleDrawer = (newOpen: boolean) => () => {
@@ -94,18 +105,22 @@ const NavigationBar: React.FC = () => {
                   onClick={() => scrollToSection("templates")}
                   sx={{ py: "6px", px: "12px" }}
                 >
-                  <Typography variant="body2" color="text.primary">
-                    Templates
-                  </Typography>
+                  <Link to="templates">
+                    <Typography variant="body2" color="text.primary">
+                      Templates
+                    </Typography>
+                  </Link>
                 </MenuItem>
-                <MenuItem
-                  onClick={() => scrollToSection("contribute")}
-                  sx={{ py: "6px", px: "12px" }}
-                >
-                  <Typography variant="body2" color="text.primary">
-                    Contribute
-                  </Typography>
-                </MenuItem>
+                <Link to="contribute">
+                  <MenuItem
+                    onClick={() => scrollToSection("contribute")}
+                    sx={{ py: "6px", px: "12px" }}
+                  >
+                    <Typography variant="body2" color="text.primary">
+                      Contribute
+                    </Typography>
+                  </MenuItem>
+                </Link>
               </Box>
             </Box>
             <Box
@@ -115,12 +130,13 @@ const NavigationBar: React.FC = () => {
                 alignItems: "center",
               }}
             >
+              <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} />
               <Button
                 color="primary"
                 variant="text"
                 size="small"
                 component="a"
-                href="/material-ui/getting-started/templates/sign-in/"
+                href="/signin"
               >
                 Sign in
               </Button>
@@ -129,7 +145,7 @@ const NavigationBar: React.FC = () => {
                 variant="contained"
                 size="small"
                 component="a"
-                href="/material-ui/getting-started/templates/sign-up/"
+                href="/resume-creation"
               >
                 Create Resume
               </Button>
@@ -153,19 +169,32 @@ const NavigationBar: React.FC = () => {
                     flexGrow: 1,
                   }}
                 >
-                  <MenuItem onClick={() => scrollToSection("templates")}>
-                    Templates
-                  </MenuItem>
-                  <MenuItem onClick={() => scrollToSection("contribute")}>
-                    Contribute
-                  </MenuItem>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "end",
+                      flexGrow: 1,
+                    }}
+                  >
+                    <ToggleColorMode
+                      mode={mode}
+                      toggleColorMode={toggleColorMode}
+                    />
+                  </Box>
+                  <Link to="templates">
+                    <MenuItem>Templates</MenuItem>
+                  </Link>
+                  <Link to="contribute">
+                    <MenuItem>Contribute</MenuItem>
+                  </Link>
                   <Divider />
                   <MenuItem>
                     <Button
                       color="primary"
                       variant="contained"
                       component="a"
-                      href="/material-ui/getting-started/templates/sign-up/"
+                      href="/signin"
                       sx={{ width: "100%" }}
                     >
                       Sign up
@@ -176,7 +205,7 @@ const NavigationBar: React.FC = () => {
                       color="primary"
                       variant="outlined"
                       component="a"
-                      href="/material-ui/getting-started/templates/sign-in/"
+                      href="/resume-creation"
                       sx={{ width: "100%" }}
                     >
                       Sign in
