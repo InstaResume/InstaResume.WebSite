@@ -14,6 +14,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import React, { useState } from "react";
 import ToggleColorMode from "../ToggleColorMode/ToggleColorMode";
 import { Link } from "react-router-dom";
+import LogoLight from "../../assets/logos/logo-light.svg";
+import LogoDark from "../../assets/logos/logo-dark.svg";
 
 interface NavigationBarProps {
   mode: PaletteMode;
@@ -34,6 +36,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
     width: "140px",
     height: "auto",
     cursor: "pointer",
+    padding: "4px",
   };
 
   const scrollToSection = (sectionId: string) => {
@@ -95,9 +98,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
             >
               <Link to="/">
                 <img
-                  src={
-                    "https://assets-global.website-files.com/61ed56ae9da9fd7e0ef0a967/61f12e6faf73568658154dae_SitemarkDefault.svg"
-                  }
+                  src={mode === "light" ? LogoLight : LogoDark}
                   style={logoStyle}
                   alt="InstaResume Logo"
                 />
