@@ -139,9 +139,9 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
                 variant="text"
                 size="small"
                 component="a"
-                href="/signin"
+                href="/login"
               >
-                Sign in
+                Login
               </Button>
               <Button
                 color="primary"
@@ -197,10 +197,10 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
                       color="primary"
                       variant="contained"
                       component="a"
-                      href="/signin"
+                      href="/login"
                       sx={{ width: "100%" }}
                     >
-                      Sign up
+                      Login
                     </Button>
                   </MenuItem>
                   <MenuItem>

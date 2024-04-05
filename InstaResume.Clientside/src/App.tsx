@@ -42,6 +42,8 @@ const App = () => {
           element={lazyLoadRoutes("ResumeCreation")}
         />
         <Route path="/contribute" element={lazyLoadRoutes("Contribute")} />
+        <Route path="/login" element={lazyLoadRoutes("Login")}/>
+        <Route path="/signup" element={lazyLoadRoutes("SignUp")}/>
       </Route>
     )
   );
