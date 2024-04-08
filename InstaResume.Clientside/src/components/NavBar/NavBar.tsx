@@ -93,7 +93,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
                 display: "flex",
                 alignItems: "center",
                 ml: "-18px",
-                px: 0,
+                px: 2,
               }}
             >
               <Link to="/">
