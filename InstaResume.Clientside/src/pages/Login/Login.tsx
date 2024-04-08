@@ -12,6 +12,7 @@ import {
   alpha
 } from '@mui/material'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
+import SigninLinkedIn from '../../assets/signin-linkedIn.png'
 import React from 'react'
 
 const Login: React.FC = () => {
@@ -79,6 +80,21 @@ const Login: React.FC = () => {
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
+          <Grid container sx={{ mt: 2 }}>
+            <Grid item xs>
+              <img
+                src={SigninLinkedIn}
+                alt="Sign in with LinkedIn"
+                style={{ opacity: 0.7, cursor: 'pointer' }}
+                onMouseEnter={(e) =>
+                  ((e.target as HTMLImageElement).style.opacity = '1')
+                }
+                onMouseLeave={(e) =>
+                  ((e.target as HTMLImageElement).style.opacity = '0.9')
+                }
+              />
+            </Grid>
+          </Grid>
           <Button
             type="submit"
             fullWidth
