@@ -168,11 +168,11 @@ const ResumeCreation: React.FC = () => {
         <div className="flex justify-center gap-x-2 text-2xl font-bold">
           {resumeFilename}
         </div>
-        <div className="flex flex-col items-center">
+        {/* <div className="flex flex-col items-center">
           <div>
             <Button>Sign in with LinkedIn</Button>
           </div>
-        </div>
+        </div> */}
         <div className="grid gap-y-10">
           <div className="grid gap-y-4">
             <Typography variant="h6">Personal Information</Typography>
