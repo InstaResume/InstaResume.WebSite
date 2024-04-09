@@ -26,6 +26,7 @@ import dayjs from "dayjs";
 import { Education } from "../../models/Education";
 import { Project } from "../../models/Project";
 import { Certificate } from "../../models/Certificates";
+import { domainName } from "../../API";
 
 const ResumeCreation: React.FC = () => {
   const navigate = useNavigate();
@@ -55,7 +56,7 @@ const ResumeCreation: React.FC = () => {
   }, [resumeId]);
 
   const DownloadResume = async () => {
-    fetch("http://localhost:5186/ResumeCreation/create", {
+    fetch(`${domainName}/ResumeCreation/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
