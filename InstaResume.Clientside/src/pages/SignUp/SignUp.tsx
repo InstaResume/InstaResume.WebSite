@@ -121,7 +121,7 @@ const SignUp: React.FC = () => {
             value={data.password}
             onChange={(e) => onValueChange(e)}
           />
-          {/* <TextField
+          <TextField
             margin="dense"
             required
             fullWidth
@@ -130,7 +130,7 @@ const SignUp: React.FC = () => {
             type="password"
             id="confirm-password"
             InputProps={{ style: { margin: '6px 0px' } }}
-          /> */}
+          />
           <Button
             type="submit"
             fullWidth
