@@ -12,15 +12,30 @@ import {
   alpha
 } from '@mui/material'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
-import React from 'react'
+import React, { useState } from 'react'
+
+const defaultData = { email: '', password: '' }
 
 const Login: React.FC = () => {
+  const [data, setData] = useState(defaultData)
+
+  const onValueChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setData({ ...data, [e.target.name]: e.target.value })
+  }
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    const data = new FormData(event.currentTarget)
+
+    if (!data.email || !data.password) {
+      alert('Please fill all the fields.')
+      return
+    }
+
     console.log({
-      email: data.get('email'),
-      password: data.get('password')
+      email: data.email,
+      password: data.password
     })
   }
 
@@ -63,6 +78,8 @@ const Login: React.FC = () => {
             autoComplete="email"
             autoFocus
             InputProps={{ style: { margin: '6px 0px' } }}
+            value={data.email}
+            onChange={(e) => onValueChange(e)}
           />
           <TextField
             margin="dense"
@@ -74,6 +91,8 @@ const Login: React.FC = () => {
             id="password"
             autoComplete="current-password"
             InputProps={{ style: { margin: '6px 0px' } }}
+            value={data.password}
+            onChange={(e) => onValueChange(e)}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}

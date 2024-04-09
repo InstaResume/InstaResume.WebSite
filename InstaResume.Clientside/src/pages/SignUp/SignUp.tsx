@@ -10,16 +10,46 @@ import {
   alpha
 } from '@mui/material'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
-import React from 'react'
+import React, { useState } from 'react'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+
+const defaultData = { name: '', email: '', password: '' }
 
 const SignUp: React.FC = () => {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const [data, setData] = useState(defaultData)
+
+  const onValueChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setData({ ...data, [e.target.name]: e.target.value })
+  }
+
+  const navigate = useNavigate()
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    const data = new FormData(event.currentTarget)
+
+    if (!data.name || !data.email || !data.password) {
+      alert('Please fill all the fields.')
+      return
+    }
+
+    try {
+      const response = await axios.post('', data)
+      setData(defaultData)
+
+      if (response.status === 200) {
+        navigate('/login')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+
     console.log({
-      name: data.get('name'),
-      email: data.get('email'),
-      password: data.get('password')
+      name: data.name,
+      email: data.email,
+      password: data.password
     })
   }
 
@@ -62,6 +92,8 @@ const SignUp: React.FC = () => {
             autoComplete="name"
             autoFocus
             InputProps={{ style: { margin: '6px 0px' } }}
+            value={data.name}
+            onChange={(e) => onValueChange(e)}
           />
           <TextField
             margin="dense"
@@ -73,6 +105,8 @@ const SignUp: React.FC = () => {
             autoComplete="email"
             autoFocus
             InputProps={{ style: { margin: '6px 0px' } }}
+            value={data.email}
+            onChange={(e) => onValueChange(e)}
           />
           <TextField
             margin="dense"
@@ -84,17 +118,19 @@ const SignUp: React.FC = () => {
             id="password"
             autoComplete="current-password"
             InputProps={{ style: { margin: '6px 0px' } }}
+            value={data.password}
+            onChange={(e) => onValueChange(e)}
           />
-          <TextField
+          {/* <TextField
             margin="dense"
             required
             fullWidth
             name="confirm-password"
             label="Confirm Password"
-            type="confirm-password"
+            type="password"
             id="confirm-password"
             InputProps={{ style: { margin: '6px 0px' } }}
-          />
+          /> */}
           <Button
             type="submit"
             fullWidth
