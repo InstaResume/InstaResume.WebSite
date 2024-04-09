@@ -9,59 +9,77 @@ import {
   Link,
   TextField,
   Typography,
-  alpha
-} from '@mui/material'
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
-import React, { useState } from 'react'
+  alpha,
+} from "@mui/material";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import React, { useState } from "react";
+import { authApi } from "../../API";
+import { User, UserLoginRequest } from "../../API/generated";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-const defaultData = { email: '', password: '' }
+const defaultData = { email: "", password: "" };
 
 const Login: React.FC = () => {
-  const [data, setData] = useState(defaultData)
+  const [data, setData] = useState(defaultData);
+  const navigate = useNavigate();
 
   const onValueChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setData({ ...data, [e.target.name]: e.target.value })
-  }
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
     if (!data.email || !data.password) {
-      alert('Please fill all the fields.')
-      return
+      alert("Please fill all the fields.");
+      return;
     }
 
-    console.log({
+    const user: UserLoginRequest = {
       email: data.email,
-      password: data.password
-    })
-  }
+      password: data.password,
+    };
+
+    const response = await authApi.authLoginPost(user);
+    if (response.data.accessToken) {
+      localStorage.setItem("x-token", response.data.accessToken);
+      axios.interceptors.request.use((config) => {
+        const token = localStorage.getItem("x-token");
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+      });
+      navigate(-1);
+    }
+  };
 
   return (
     <Box
       sx={(theme) => ({
-        width: '100%',
+        width: "100%",
         backgroundImage:
-          theme.palette.mode === 'light'
-            ? 'linear-gradient(180deg, #CEE5FD, #FFF)'
-            : `linear-gradient(#02294F, ${alpha('#090E10', 0.0)})`,
-        backgroundSize: '100% 20%',
-        backgroundRepeat: 'no-repeat',
-        height: '100vh'
+          theme.palette.mode === "light"
+            ? "linear-gradient(180deg, #CEE5FD, #FFF)"
+            : `linear-gradient(#02294F, ${alpha("#090E10", 0.0)})`,
+        backgroundSize: "100% 20%",
+        backgroundRepeat: "no-repeat",
+        height: "100vh",
       })}
     >
       <Container
         sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
           pt: { xs: 14, sm: 20 },
-          pb: { xs: 8, sm: 12 }
+          pb: { xs: 8, sm: 12 },
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
@@ -77,7 +95,7 @@ const Login: React.FC = () => {
             name="email"
             autoComplete="email"
             autoFocus
-            InputProps={{ style: { margin: '6px 0px' } }}
+            InputProps={{ style: { margin: "6px 0px" } }}
             value={data.email}
             onChange={(e) => onValueChange(e)}
           />
@@ -90,7 +108,7 @@ const Login: React.FC = () => {
             type="password"
             id="password"
             autoComplete="current-password"
-            InputProps={{ style: { margin: '6px 0px' } }}
+            InputProps={{ style: { margin: "6px 0px" } }}
             value={data.password}
             onChange={(e) => onValueChange(e)}
           />
@@ -121,7 +139,7 @@ const Login: React.FC = () => {
         </Box>
       </Container>
     </Box>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

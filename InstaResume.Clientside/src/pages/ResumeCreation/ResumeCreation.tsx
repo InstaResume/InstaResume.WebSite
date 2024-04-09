@@ -16,9 +16,9 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { saveAs } from "file-saver";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import TextEditor from "../../components/TextEditor/TextEditor";
 import { WorkExperience } from "../../models/WorkExperience";
 import { DatePicker } from "@mui/x-date-pickers";
@@ -45,6 +45,14 @@ const ResumeCreation: React.FC = () => {
   const [education, setEducation] = useState<Education[]>([]);
   const [projects, setProject] = useState<Project[]>([]);
   const [certificates, setCertificates] = useState<Certificate[]>([]);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const resumeId = searchParams.get("resumeId");
+
+  useEffect(() => {
+    if (!resumeId) return;
+    console.log(resumeId);
+  }, [resumeId]);
 
   const DownloadResume = async () => {
     fetch("http://localhost:5186/ResumeCreation/create", {

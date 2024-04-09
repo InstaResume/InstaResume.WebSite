@@ -7,75 +7,74 @@ import {
   Link,
   TextField,
   Typography,
-  alpha
-} from '@mui/material'
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
-import React, { useState } from 'react'
-import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+  alpha,
+} from "@mui/material";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { authApi } from "../../API";
 
-const defaultData = { name: '', email: '', password: '' }
+const defaultData = { name: "", email: "", password: "" };
 
 const SignUp: React.FC = () => {
-  const [data, setData] = useState(defaultData)
+  const [data, setData] = useState(defaultData);
 
   const onValueChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setData({ ...data, [e.target.name]: e.target.value })
-  }
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+    event.preventDefault();
 
     if (!data.name || !data.email || !data.password) {
-      alert('Please fill all the fields.')
-      return
+      alert("Please fill all the fields.");
+      return;
     }
 
     try {
-      const response = await axios.post('', data)
-      setData(defaultData)
+      console.log("Test");
+      const response = await authApi.authRegisterPost({
+        username: data.name,
+        email: data.email,
+        password: data.password,
+      });
 
       if (response.status === 200) {
-        navigate('/login')
+        navigate("/login");
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-
-    console.log({
-      name: data.name,
-      email: data.email,
-      password: data.password
-    })
-  }
+  };
 
   return (
     <Box
       sx={(theme) => ({
-        width: '100%',
+        width: "100%",
         backgroundImage:
-          theme.palette.mode === 'light'
-            ? 'linear-gradient(180deg, #CEE5FD, #FFF)'
-            : `linear-gradient(#02294F, ${alpha('#090E10', 0.0)})`,
-        backgroundSize: '100% 20%',
-        backgroundRepeat: 'no-repeat',
-        height: '100vh'
+          theme.palette.mode === "light"
+            ? "linear-gradient(180deg, #CEE5FD, #FFF)"
+            : `linear-gradient(#02294F, ${alpha("#090E10", 0.0)})`,
+        backgroundSize: "100% 20%",
+        backgroundRepeat: "no-repeat",
+        height: "100vh",
       })}
     >
       <Container
         sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
           pt: { xs: 14, sm: 20 },
-          pb: { xs: 8, sm: 12 }
+          pb: { xs: 8, sm: 12 },
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
@@ -91,7 +90,7 @@ const SignUp: React.FC = () => {
             name="name"
             autoComplete="name"
             autoFocus
-            InputProps={{ style: { margin: '6px 0px' } }}
+            InputProps={{ style: { margin: "6px 0px" } }}
             value={data.name}
             onChange={(e) => onValueChange(e)}
           />
@@ -104,7 +103,7 @@ const SignUp: React.FC = () => {
             name="email"
             autoComplete="email"
             autoFocus
-            InputProps={{ style: { margin: '6px 0px' } }}
+            InputProps={{ style: { margin: "6px 0px" } }}
             value={data.email}
             onChange={(e) => onValueChange(e)}
           />
@@ -117,7 +116,7 @@ const SignUp: React.FC = () => {
             type="password"
             id="password"
             autoComplete="current-password"
-            InputProps={{ style: { margin: '6px 0px' } }}
+            InputProps={{ style: { margin: "6px 0px" } }}
             value={data.password}
             onChange={(e) => onValueChange(e)}
           />
@@ -142,14 +141,14 @@ const SignUp: React.FC = () => {
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Link href="/login" variant="body2">
-                {'Already have an account? Login'}
+                {"Already have an account? Login"}
               </Link>
             </Grid>
           </Grid>
         </Box>
       </Container>
     </Box>
-  )
-}
+  );
+};
 
-export default SignUp
+export default SignUp;

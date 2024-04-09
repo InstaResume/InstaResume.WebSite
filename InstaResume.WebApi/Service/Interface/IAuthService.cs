@@ -1,8 +1,11 @@
+using System.Security.Claims;
 using InstaResume.WebSite.Model;
-using Microsoft.AspNetCore.Mvc;
 
 namespace InstaResume.WebSite.Service.Interface;
 
 public interface IAuthService
 {
+    Task<JwtToken> Login(UserLoginRequest user);
+    public Task Register(UserRegisterRequest user);
+    Task<User> GetDetail(ClaimsPrincipal? claimsPrincipal);
 }
