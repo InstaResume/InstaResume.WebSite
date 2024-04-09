@@ -14,7 +14,7 @@ import {
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import React, { useState } from "react";
 import { authApi } from "../../API";
-import { User, UserLoginRequest } from "../../API/generated";
+import { UserLoginRequest } from "../../API/generated";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 

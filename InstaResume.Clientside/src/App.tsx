@@ -18,7 +18,7 @@ import {
 import { lazyLoadRoutes } from "./routes/lazyLoadRoute";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import { login } from "./redux/action/authActions";
 import { authApi } from "./API";

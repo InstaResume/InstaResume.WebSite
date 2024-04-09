@@ -30,7 +30,7 @@ import { domainName } from "../../API";
 
 const ResumeCreation: React.FC = () => {
   const navigate = useNavigate();
-  const [isDownloadButtonLoading, setDownloadButtonLoading] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [resumeFilename, setResumeFilename] = useState("Untitled");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -40,6 +40,7 @@ const ResumeCreation: React.FC = () => {
   const [city, setCity] = useState("");
   const [professionalSummary, setProfessionalSummary] = useState("");
   const [socialLinks, setSocialLinks] = useState<string[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [allSkills, setAllSkills] = useState([]);
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
   const [workExperiences, setWorkExperiences] = useState<WorkExperience[]>([]);
@@ -47,6 +48,7 @@ const ResumeCreation: React.FC = () => {
   const [projects, setProject] = useState<Project[]>([]);
   const [certificates, setCertificates] = useState<Certificate[]>([]);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [searchParams, setSearchParams] = useSearchParams();
   const resumeId = searchParams.get("resumeId");
 

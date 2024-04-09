@@ -19,14 +19,7 @@ import LogoLight from "../../assets/logos/logo-light.svg";
 import LogoDark from "../../assets/logos/logo-dark.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/reducer/rootReducer";
-import {
-  Archive,
-  Edit,
-  FileCopy,
-  KeyboardArrowDown,
-  Logout,
-  MoreHoriz,
-} from "@mui/icons-material";
+import { FileCopy, KeyboardArrowDown, Logout } from "@mui/icons-material";
 import { logout } from "../../redux/action/authActions";
 
 interface NavigationBarProps {
