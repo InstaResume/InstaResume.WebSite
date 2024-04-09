@@ -71,4 +71,22 @@ public class ResumeCreationService : IResumeCreationService
             throw new BadHttpRequestException("User not found");
         return await _resumeCreationRepository.GetResumeDataFromUserId(userId.Value);
     }
+    
+    public async Task<TemplateSourceResponse?> GetTemplateSource(string templateName)
+    {
+        var apiUrl = _configHelper.GetPdfGeneratorConfig().SourceUrl;
+
+        var client = new HttpClient();
+        try
+        {
+            var response = await client.GetAsync(apiUrl);
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadFromJsonAsync<TemplateSourceResponse>();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error getting HTML source: {ex.Message}");
+            throw;
+        }
+    }
 }

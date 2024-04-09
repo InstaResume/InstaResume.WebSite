@@ -10,4 +10,5 @@ public interface IResumeCreationService
     public Task SaveResumeData(ResumeData resumeData, ClaimsPrincipal? claimsPrincipal);
     public Task<List<ResumeData>> GetAllResumesFromUser(ClaimsPrincipal claimsPrincipal);
     public Task<ResumeData> GetResumeDataFromUser(ClaimsPrincipal? claimsPrincipal);
+    Task<TemplateSourceResponse?> GetTemplateSource(string templateName);
 }

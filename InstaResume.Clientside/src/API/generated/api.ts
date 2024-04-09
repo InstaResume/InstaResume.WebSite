@@ -119,6 +119,56 @@ export interface EducationObject {
 /**
  * 
  * @export
+ * @interface GeneratedDescription
+ */
+export interface GeneratedDescription {
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof GeneratedDescription
+     */
+    'keywords'?: Array<string> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof GeneratedDescription
+     */
+    'description'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface GetGenDescriptionRequest
+ */
+export interface GetGenDescriptionRequest {
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof GetGenDescriptionRequest
+     */
+    'keywords'?: Array<string> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetGenDescriptionRequest
+     */
+    'draftDescription'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetGenDescriptionRequest
+     */
+    'company'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetGenDescriptionRequest
+     */
+    'jobPosition'?: string | null;
+}
+/**
+ * 
+ * @export
  * @interface JwtToken
  */
 export interface JwtToken {
@@ -286,6 +336,19 @@ export interface ResumeData {
      * @memberof ResumeData
      */
     'certificates'?: Array<CertificateObject> | null;
+}
+/**
+ * 
+ * @export
+ * @interface TemplateSourceResponse
+ */
+export interface TemplateSourceResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof TemplateSourceResponse
+     */
+    'source'?: string | null;
 }
 /**
  * 
@@ -631,6 +694,107 @@ export class AuthApi extends BaseAPI {
 
 
 /**
+ * DescriptionGeneratorApi - axios parameter creator
+ * @export
+ */
+export const DescriptionGeneratorApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {GetGenDescriptionRequest} [getGenDescriptionRequest] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        descriptionGeneratorCreatePost: async (getGenDescriptionRequest?: GetGenDescriptionRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/DescriptionGenerator/create`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(getGenDescriptionRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * DescriptionGeneratorApi - functional programming interface
+ * @export
+ */
+export const DescriptionGeneratorApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = DescriptionGeneratorApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {GetGenDescriptionRequest} [getGenDescriptionRequest] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async descriptionGeneratorCreatePost(getGenDescriptionRequest?: GetGenDescriptionRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GeneratedDescription>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.descriptionGeneratorCreatePost(getGenDescriptionRequest, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * DescriptionGeneratorApi - factory interface
+ * @export
+ */
+export const DescriptionGeneratorApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = DescriptionGeneratorApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {GetGenDescriptionRequest} [getGenDescriptionRequest] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        descriptionGeneratorCreatePost(getGenDescriptionRequest?: GetGenDescriptionRequest, options?: any): AxiosPromise<GeneratedDescription> {
+            return localVarFp.descriptionGeneratorCreatePost(getGenDescriptionRequest, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * DescriptionGeneratorApi - object-oriented interface
+ * @export
+ * @class DescriptionGeneratorApi
+ * @extends {BaseAPI}
+ */
+export class DescriptionGeneratorApi extends BaseAPI {
+    /**
+     * 
+     * @param {GetGenDescriptionRequest} [getGenDescriptionRequest] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DescriptionGeneratorApi
+     */
+    public descriptionGeneratorCreatePost(getGenDescriptionRequest?: GetGenDescriptionRequest, options?: AxiosRequestConfig) {
+        return DescriptionGeneratorApiFp(this.configuration).descriptionGeneratorCreatePost(getGenDescriptionRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
  * HealthApi - axios parameter creator
  * @export
  */
@@ -757,40 +921,6 @@ export const ResumeCreationApiAxiosParamCreator = function (configuration?: Conf
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(createResumeRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {string} [name] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        resumeCreationGet: async (name?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/ResumeCreation`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (name !== undefined) {
-                localVarQueryParameter['name'] = name;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -937,6 +1067,40 @@ export const ResumeCreationApiAxiosParamCreator = function (configuration?: Conf
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @param {string} [name] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        resumeCreationTemplateSourceGet: async (name?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/ResumeCreation/templateSource`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (name !== undefined) {
+                localVarQueryParameter['name'] = name;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -955,16 +1119,6 @@ export const ResumeCreationApiFp = function(configuration?: Configuration) {
          */
         async resumeCreationCreatePost(createResumeRequest?: CreateResumeRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.resumeCreationCreatePost(createResumeRequest, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {string} [name] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async resumeCreationGet(name?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.resumeCreationGet(name, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1005,6 +1159,16 @@ export const ResumeCreationApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.resumeCreationSavePost(resumeData, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+        /**
+         * 
+         * @param {string} [name] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async resumeCreationTemplateSourceGet(name?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TemplateSourceResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.resumeCreationTemplateSourceGet(name, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
     }
 };
 
@@ -1023,15 +1187,6 @@ export const ResumeCreationApiFactory = function (configuration?: Configuration,
          */
         resumeCreationCreatePost(createResumeRequest?: CreateResumeRequest, options?: any): AxiosPromise<void> {
             return localVarFp.resumeCreationCreatePost(createResumeRequest, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {string} [name] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        resumeCreationGet(name?: string, options?: any): AxiosPromise<void> {
-            return localVarFp.resumeCreationGet(name, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1067,6 +1222,15 @@ export const ResumeCreationApiFactory = function (configuration?: Configuration,
         resumeCreationSavePost(resumeData?: ResumeData, options?: any): AxiosPromise<void> {
             return localVarFp.resumeCreationSavePost(resumeData, options).then((request) => request(axios, basePath));
         },
+        /**
+         * 
+         * @param {string} [name] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        resumeCreationTemplateSourceGet(name?: string, options?: any): AxiosPromise<TemplateSourceResponse> {
+            return localVarFp.resumeCreationTemplateSourceGet(name, options).then((request) => request(axios, basePath));
+        },
     };
 };
 
@@ -1086,17 +1250,6 @@ export class ResumeCreationApi extends BaseAPI {
      */
     public resumeCreationCreatePost(createResumeRequest?: CreateResumeRequest, options?: AxiosRequestConfig) {
         return ResumeCreationApiFp(this.configuration).resumeCreationCreatePost(createResumeRequest, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {string} [name] 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ResumeCreationApi
-     */
-    public resumeCreationGet(name?: string, options?: AxiosRequestConfig) {
-        return ResumeCreationApiFp(this.configuration).resumeCreationGet(name, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1139,6 +1292,17 @@ export class ResumeCreationApi extends BaseAPI {
      */
     public resumeCreationSavePost(resumeData?: ResumeData, options?: AxiosRequestConfig) {
         return ResumeCreationApiFp(this.configuration).resumeCreationSavePost(resumeData, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} [name] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ResumeCreationApi
+     */
+    public resumeCreationTemplateSourceGet(name?: string, options?: AxiosRequestConfig) {
+        return ResumeCreationApiFp(this.configuration).resumeCreationTemplateSourceGet(name, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

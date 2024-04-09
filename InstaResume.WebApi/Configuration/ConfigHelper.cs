@@ -36,4 +36,11 @@ public class ConfigHelper : IConfigHelper
         _configuration.GetSection(mongoDbConfig.ConfigKey).Bind(mongoDbConfig);
         return mongoDbConfig;
     }
+    
+    public OpenAiConfig GetOpenAiConfig()
+    {
+        var openAiConfig = new OpenAiConfig();
+        _configuration.GetSection(openAiConfig.ConfigKey).Bind(openAiConfig);
+        return openAiConfig;
+    }
 }

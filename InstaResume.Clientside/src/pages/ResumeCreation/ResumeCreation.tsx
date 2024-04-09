@@ -26,7 +26,12 @@ import dayjs from "dayjs";
 import { Education } from "../../models/Education";
 import { Project } from "../../models/Project";
 import { Certificate } from "../../models/Certificates";
-import { domainName } from "../../API";
+import { domainName, resumeCreationApi } from "../../API";
+import Handlebars from "handlebars";
+import {
+  convertRtfToHtml,
+  convertToMonthYear,
+} from "../../utils/handlebarsUtil";
 
 const ResumeCreation: React.FC = () => {
   const navigate = useNavigate();
@@ -161,6 +166,86 @@ const ResumeCreation: React.FC = () => {
     newSocialLinks.push("");
     setSocialLinks(newSocialLinks);
   };
+
+  const [compiledTemplate, setCompiledTemplate] =
+    useState<HandlebarsTemplateDelegate | null>(null);
+  const [source, setSource] = useState<string>(
+    "<div><h1>{{firstName}}</h1><p>{{lastName}}</p></div>"
+  );
+
+  Handlebars.registerHelper("splitWithComma", function (input) {
+    return input.join(", ");
+  });
+  Handlebars.registerHelper("rtfToHtml", function (rtf) {
+    return new Handlebars.SafeString(convertRtfToHtml(rtf));
+  });
+  Handlebars.registerHelper("toMonthYear", function (date) {
+    return convertToMonthYear(date);
+  });
+
+  const [data, setData] = useState({
+    firstName,
+    lastName,
+    email,
+    phone,
+    country,
+    city,
+    professionalSummary,
+    skills: selectedSkills,
+    workExperiences,
+    education,
+    projects,
+    certificates,
+    socialLinks,
+  });
+
+  useEffect(() => {
+    setData({
+      firstName,
+      lastName,
+      email,
+      phone,
+      country,
+      city,
+      professionalSummary,
+      skills: selectedSkills,
+      workExperiences,
+      education,
+      projects,
+      certificates,
+      socialLinks,
+    });
+  }, [
+    certificates,
+    city,
+    country,
+    education,
+    email,
+    firstName,
+    lastName,
+    phone,
+    professionalSummary,
+    projects,
+    selectedSkills,
+    socialLinks,
+    workExperiences,
+  ]);
+
+  useEffect(() => {
+    resumeCreationApi.resumeCreationTemplateSourceGet("test").then((res) => {
+      setSource(res.data.source ?? "");
+    });
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const template = Handlebars.compile(source);
+      setCompiledTemplate(() => template);
+    }, 200);
+
+    // Cleanup function to clear the timer
+    return () => clearTimeout(timer);
+  }, [data, source]);
 
   return (
     <div className="grid grid-cols-2 w-full">
@@ -715,7 +800,7 @@ const ResumeCreation: React.FC = () => {
       </div>
       <div
         aria-label="preview-section"
-        className="h-full bg-gray-500 pt-32 px-10"
+        className="h-full bg-gray-500 pt-32 px-10 flex flex-col gap-y-4"
       >
         <div className="flex justify-between">
           <div>
@@ -732,6 +817,11 @@ const ResumeCreation: React.FC = () => {
               Download
             </Button>
           </div>
+        </div>
+        <div className="bg-white w-full p-5">
+          {compiledTemplate && (
+            <div dangerouslySetInnerHTML={{ __html: compiledTemplate(data) }} />
+          )}
         </div>
       </div>
     </div>

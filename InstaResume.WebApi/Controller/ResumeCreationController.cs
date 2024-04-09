@@ -18,10 +18,17 @@ public class ResumeCreationController : ControllerBase
         _resumeCreationService = resumeCreationService;
     }
 
-    [HttpGet]
-    public IResult Get(string name)
+    [HttpGet("templateSource")]
+    public async Task<ActionResult<TemplateSourceResponse>> Get(string name)
     {
-        return Results.Ok();
+        try
+        {
+            return Ok(await _resumeCreationService.GetTemplateSource(name));
+        }
+        catch (Exception ex)
+        {
+            return Problem(ex.Message);
+        }
     }
 
     [HttpPost("create")]
