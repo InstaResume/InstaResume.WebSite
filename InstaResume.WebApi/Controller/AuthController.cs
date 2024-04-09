@@ -1,9 +1,5 @@
-using System.Security.Claims;
 using InstaResume.WebSite.Model;
 using InstaResume.WebSite.Service.Interface;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.BearerToken;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,55 +18,50 @@ public class AuthController : ControllerBase
         _authService = authService;
     }
     
-    [HttpGet("login")]
-    public IResult Login(string username, string role)
+    [HttpPost("login")]
+    public async Task<ActionResult<JwtToken>> Login(UserLoginRequest user)
     {
-        var claimsPrincipal = new ClaimsPrincipal(
-            new ClaimsIdentity(
-                new[] { new Claim(ClaimTypes.Name, username), new Claim(ClaimTypes.Role, role) },
-                BearerTokenDefaults.AuthenticationScheme
-            )
-        );
-
-        return Results.SignIn(claimsPrincipal);
-    }
-    
-    [HttpGet("/user")]
-    [Authorize]
-    public IResult GetUser()
-    {
-        var user = _httpContextAccessor.HttpContext?.User;
-        return Results.Ok($"Welcome {user?.Identity?.Name}!");
-    }
-    
-    [HttpGet("/privilege")]
-    [Authorize(Roles = "Admin")]
-    public IResult GetPrivilege()
-    {
-        var user = _httpContextAccessor.HttpContext?.User;
-        return Results.Ok($"Your privilege is {user?.FindFirst(ClaimTypes.Role)?.Value}!");
-    }
-    
-    [HttpGet("oauth")]
-    public IActionResult ExternalLogin(string provider, string returnUrl = "/")
-    {
-        var redirectUrl = Url.Action(nameof(ExternalLoginCallback), "Auth", new { returnUrl });
-        var properties = new AuthenticationProperties { RedirectUri = redirectUrl };
-        return Challenge(properties, provider);
-    }
-    
-    [HttpGet("oauth/callback")]
-    public async Task<IActionResult> ExternalLoginCallback(string returnUrl = "/")
-    {
-        var authenticateResult = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-        if (!authenticateResult.Succeeded)
+        try
         {
-            return RedirectToAction(nameof(Login));
+            var token = await _authService.Login(user);
+            return Ok(token);
         }
-
-        // Handle external login (create user, sign in, etc.)
-
-        return LocalRedirect(returnUrl);
+        catch (Exception ex)
+        {
+            return ex switch
+            {
+                BadHttpRequestException => BadRequest(ex.Message),
+                UnauthorizedAccessException => Unauthorized(ex.Message),
+                _ => Problem(ex.Message)
+            };
+        }
+        
     }
     
+    [HttpPost("register")]
+    public async Task<IActionResult> Register(UserRegisterRequest user)
+    {
+        try
+        {
+            await _authService.Register(user);
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            if (e is BadHttpRequestException)
+            {
+                return BadRequest(e.Message);
+            }
+
+            return Problem(e.Message);
+        }
+    }
+    
+    [HttpGet("myInfo")]
+    [Authorize]
+    public async Task<ActionResult<User>> GetUser()
+    {
+        var user = _httpContextAccessor.HttpContext?.User;
+        return await _authService.GetDetail(user);
+    }
 }

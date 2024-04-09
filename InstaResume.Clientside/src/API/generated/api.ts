@@ -23,6 +23,388 @@ import type { RequestArgs } from './base';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError } from './base';
 
+/**
+ * 
+ * @export
+ * @interface CertificateObject
+ */
+export interface CertificateObject {
+    /**
+     * 
+     * @type {string}
+     * @memberof CertificateObject
+     */
+    'title'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof CertificateObject
+     */
+    'credentialUrl'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof CertificateObject
+     */
+    'description'?: string | null;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof CertificateObject
+     */
+    'skills'?: Array<string> | null;
+}
+/**
+ * 
+ * @export
+ * @interface CreateResumeRequest
+ */
+export interface CreateResumeRequest {
+    /**
+     * 
+     * @type {any}
+     * @memberof CreateResumeRequest
+     */
+    'replacements'?: any | null;
+}
+/**
+ * 
+ * @export
+ * @interface EducationObject
+ */
+export interface EducationObject {
+    /**
+     * 
+     * @type {string}
+     * @memberof EducationObject
+     */
+    'major'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof EducationObject
+     */
+    'degree'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof EducationObject
+     */
+    'school'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof EducationObject
+     */
+    'startDate'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof EducationObject
+     */
+    'endDate'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof EducationObject
+     */
+    'description'?: string | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof EducationObject
+     */
+    'isCurrentlyStudying'?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface JwtToken
+ */
+export interface JwtToken {
+    /**
+     * 
+     * @type {string}
+     * @memberof JwtToken
+     */
+    'tokenType'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof JwtToken
+     */
+    'accessToken'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof JwtToken
+     */
+    'refreshToken'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof JwtToken
+     */
+    'expiresIn'?: number;
+}
+/**
+ * 
+ * @export
+ * @interface ProjectObject
+ */
+export interface ProjectObject {
+    /**
+     * 
+     * @type {string}
+     * @memberof ProjectObject
+     */
+    'title'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ProjectObject
+     */
+    'description'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ProjectObject
+     */
+    'startDate'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ProjectObject
+     */
+    'endDate'?: string | null;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof ProjectObject
+     */
+    'links'?: Array<string> | null;
+}
+/**
+ * 
+ * @export
+ * @interface ResumeData
+ */
+export interface ResumeData {
+    /**
+     * 
+     * @type {string}
+     * @memberof ResumeData
+     */
+    'id'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ResumeData
+     */
+    'ownerId'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ResumeData
+     */
+    'templateUrl'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ResumeData
+     */
+    'firstName'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ResumeData
+     */
+    'lastName'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ResumeData
+     */
+    'email'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ResumeData
+     */
+    'phone'?: string | null;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof ResumeData
+     */
+    'socialLinks'?: Array<string> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ResumeData
+     */
+    'city'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ResumeData
+     */
+    'country'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ResumeData
+     */
+    'professionalSummary'?: string | null;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof ResumeData
+     */
+    'skills'?: Array<string> | null;
+    /**
+     * 
+     * @type {Array<WorkExperienceObject>}
+     * @memberof ResumeData
+     */
+    'workExperience'?: Array<WorkExperienceObject> | null;
+    /**
+     * 
+     * @type {Array<EducationObject>}
+     * @memberof ResumeData
+     */
+    'education'?: Array<EducationObject> | null;
+    /**
+     * 
+     * @type {Array<ProjectObject>}
+     * @memberof ResumeData
+     */
+    'projects'?: Array<ProjectObject> | null;
+    /**
+     * 
+     * @type {Array<CertificateObject>}
+     * @memberof ResumeData
+     */
+    'certificates'?: Array<CertificateObject> | null;
+}
+/**
+ * 
+ * @export
+ * @interface User
+ */
+export interface User {
+    /**
+     * 
+     * @type {string}
+     * @memberof User
+     */
+    'username'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof User
+     */
+    'email'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface UserLoginRequest
+ */
+export interface UserLoginRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof UserLoginRequest
+     */
+    'email'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserLoginRequest
+     */
+    'password'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface UserRegisterRequest
+ */
+export interface UserRegisterRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof UserRegisterRequest
+     */
+    'username'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserRegisterRequest
+     */
+    'email'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserRegisterRequest
+     */
+    'password'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface WorkExperienceObject
+ */
+export interface WorkExperienceObject {
+    /**
+     * 
+     * @type {string}
+     * @memberof WorkExperienceObject
+     */
+    'jobTitle'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof WorkExperienceObject
+     */
+    'position'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof WorkExperienceObject
+     */
+    'employer'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof WorkExperienceObject
+     */
+    'city'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof WorkExperienceObject
+     */
+    'startDate'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof WorkExperienceObject
+     */
+    'endDate'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof WorkExperienceObject
+     */
+    'description'?: string | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WorkExperienceObject
+     */
+    'isCurrentlyWorking'?: boolean;
+}
 
 /**
  * AuthApi - axios parameter creator
@@ -32,12 +414,11 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
     return {
         /**
          * 
-         * @param {string} [username] 
-         * @param {string} [role] 
+         * @param {UserLoginRequest} [userLoginRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authLoginGet: async (username?: string, role?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        authLoginPost: async (userLoginRequest?: UserLoginRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/Auth/login`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -46,96 +427,18 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            if (username !== undefined) {
-                localVarQueryParameter['username'] = username;
-            }
-
-            if (role !== undefined) {
-                localVarQueryParameter['role'] = role;
-            }
-
 
     
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {string} [returnUrl] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        authOauthCallbackGet: async (returnUrl?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/Auth/oauth/callback`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (returnUrl !== undefined) {
-                localVarQueryParameter['returnUrl'] = returnUrl;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {string} [provider] 
-         * @param {string} [returnUrl] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        authOauthGet: async (provider?: string, returnUrl?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/Auth/oauth`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (provider !== undefined) {
-                localVarQueryParameter['provider'] = provider;
-            }
-
-            if (returnUrl !== undefined) {
-                localVarQueryParameter['returnUrl'] = returnUrl;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(userLoginRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -147,8 +450,8 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        privilegeGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/privilege`;
+        authMyInfoGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/Auth/myInfo`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -177,11 +480,12 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
         },
         /**
          * 
+         * @param {UserRegisterRequest} [userRegisterRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        userGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/user`;
+        authRegisterPost: async (userRegisterRequest?: UserRegisterRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/Auth/register`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -189,19 +493,18 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication Bearer required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
 
     
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(userRegisterRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -220,34 +523,12 @@ export const AuthApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @param {string} [username] 
-         * @param {string} [role] 
+         * @param {UserLoginRequest} [userLoginRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async authLoginGet(username?: string, role?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.authLoginGet(username, role, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {string} [returnUrl] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async authOauthCallbackGet(returnUrl?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.authOauthCallbackGet(returnUrl, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {string} [provider] 
-         * @param {string} [returnUrl] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async authOauthGet(provider?: string, returnUrl?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.authOauthGet(provider, returnUrl, options);
+        async authLoginPost(userLoginRequest?: UserLoginRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<JwtToken>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authLoginPost(userLoginRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -255,17 +536,18 @@ export const AuthApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async privilegeGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.privilegeGet(options);
+        async authMyInfoGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authMyInfoGet(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
+         * @param {UserRegisterRequest} [userRegisterRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async userGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.userGet(options);
+        async authRegisterPost(userRegisterRequest?: UserRegisterRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authRegisterPost(userRegisterRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -280,48 +562,29 @@ export const AuthApiFactory = function (configuration?: Configuration, basePath?
     return {
         /**
          * 
-         * @param {string} [username] 
-         * @param {string} [role] 
+         * @param {UserLoginRequest} [userLoginRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authLoginGet(username?: string, role?: string, options?: any): AxiosPromise<void> {
-            return localVarFp.authLoginGet(username, role, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {string} [returnUrl] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        authOauthCallbackGet(returnUrl?: string, options?: any): AxiosPromise<void> {
-            return localVarFp.authOauthCallbackGet(returnUrl, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {string} [provider] 
-         * @param {string} [returnUrl] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        authOauthGet(provider?: string, returnUrl?: string, options?: any): AxiosPromise<void> {
-            return localVarFp.authOauthGet(provider, returnUrl, options).then((request) => request(axios, basePath));
+        authLoginPost(userLoginRequest?: UserLoginRequest, options?: any): AxiosPromise<JwtToken> {
+            return localVarFp.authLoginPost(userLoginRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        privilegeGet(options?: any): AxiosPromise<void> {
-            return localVarFp.privilegeGet(options).then((request) => request(axios, basePath));
+        authMyInfoGet(options?: any): AxiosPromise<User> {
+            return localVarFp.authMyInfoGet(options).then((request) => request(axios, basePath));
         },
         /**
          * 
+         * @param {UserRegisterRequest} [userRegisterRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        userGet(options?: any): AxiosPromise<void> {
-            return localVarFp.userGet(options).then((request) => request(axios, basePath));
+        authRegisterPost(userRegisterRequest?: UserRegisterRequest, options?: any): AxiosPromise<void> {
+            return localVarFp.authRegisterPost(userRegisterRequest, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -335,37 +598,13 @@ export const AuthApiFactory = function (configuration?: Configuration, basePath?
 export class AuthApi extends BaseAPI {
     /**
      * 
-     * @param {string} [username] 
-     * @param {string} [role] 
+     * @param {UserLoginRequest} [userLoginRequest] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AuthApi
      */
-    public authLoginGet(username?: string, role?: string, options?: AxiosRequestConfig) {
-        return AuthApiFp(this.configuration).authLoginGet(username, role, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {string} [returnUrl] 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AuthApi
-     */
-    public authOauthCallbackGet(returnUrl?: string, options?: AxiosRequestConfig) {
-        return AuthApiFp(this.configuration).authOauthCallbackGet(returnUrl, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {string} [provider] 
-     * @param {string} [returnUrl] 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AuthApi
-     */
-    public authOauthGet(provider?: string, returnUrl?: string, options?: AxiosRequestConfig) {
-        return AuthApiFp(this.configuration).authOauthGet(provider, returnUrl, options).then((request) => request(this.axios, this.basePath));
+    public authLoginPost(userLoginRequest?: UserLoginRequest, options?: AxiosRequestConfig) {
+        return AuthApiFp(this.configuration).authLoginPost(userLoginRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -374,18 +613,19 @@ export class AuthApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AuthApi
      */
-    public privilegeGet(options?: AxiosRequestConfig) {
-        return AuthApiFp(this.configuration).privilegeGet(options).then((request) => request(this.axios, this.basePath));
+    public authMyInfoGet(options?: AxiosRequestConfig) {
+        return AuthApiFp(this.configuration).authMyInfoGet(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
+     * @param {UserRegisterRequest} [userRegisterRequest] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AuthApi
      */
-    public userGet(options?: AxiosRequestConfig) {
-        return AuthApiFp(this.configuration).userGet(options).then((request) => request(this.axios, this.basePath));
+    public authRegisterPost(userRegisterRequest?: UserRegisterRequest, options?: AxiosRequestConfig) {
+        return AuthApiFp(this.configuration).authRegisterPost(userRegisterRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -492,6 +732,39 @@ export const ResumeCreationApiAxiosParamCreator = function (configuration?: Conf
     return {
         /**
          * 
+         * @param {CreateResumeRequest} [createResumeRequest] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        resumeCreationCreatePost: async (createResumeRequest?: CreateResumeRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/ResumeCreation/create`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createResumeRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {string} [name] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -529,8 +802,75 @@ export const ResumeCreationApiAxiosParamCreator = function (configuration?: Conf
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        resumeCreationPost: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/ResumeCreation`;
+        resumeCreationMyDataGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/ResumeCreation/myData`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        resumeCreationMyResumeGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/ResumeCreation/myResume`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {ResumeData} [resumeData] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        resumeCreationSaveDataPost: async (resumeData?: ResumeData, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/ResumeCreation/saveData`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -542,11 +882,55 @@ export const ResumeCreationApiAxiosParamCreator = function (configuration?: Conf
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
 
     
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(resumeData, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {ResumeData} [resumeData] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        resumeCreationSavePost: async (resumeData?: ResumeData, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/ResumeCreation/save`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(resumeData, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -565,6 +949,16 @@ export const ResumeCreationApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @param {CreateResumeRequest} [createResumeRequest] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async resumeCreationCreatePost(createResumeRequest?: CreateResumeRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.resumeCreationCreatePost(createResumeRequest, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {string} [name] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -578,8 +972,37 @@ export const ResumeCreationApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async resumeCreationPost(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.resumeCreationPost(options);
+        async resumeCreationMyDataGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResumeData>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.resumeCreationMyDataGet(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async resumeCreationMyResumeGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ResumeData>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.resumeCreationMyResumeGet(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {ResumeData} [resumeData] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async resumeCreationSaveDataPost(resumeData?: ResumeData, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.resumeCreationSaveDataPost(resumeData, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {ResumeData} [resumeData] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async resumeCreationSavePost(resumeData?: ResumeData, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.resumeCreationSavePost(resumeData, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -594,6 +1017,15 @@ export const ResumeCreationApiFactory = function (configuration?: Configuration,
     return {
         /**
          * 
+         * @param {CreateResumeRequest} [createResumeRequest] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        resumeCreationCreatePost(createResumeRequest?: CreateResumeRequest, options?: any): AxiosPromise<void> {
+            return localVarFp.resumeCreationCreatePost(createResumeRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {string} [name] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -606,8 +1038,34 @@ export const ResumeCreationApiFactory = function (configuration?: Configuration,
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        resumeCreationPost(options?: any): AxiosPromise<void> {
-            return localVarFp.resumeCreationPost(options).then((request) => request(axios, basePath));
+        resumeCreationMyDataGet(options?: any): AxiosPromise<ResumeData> {
+            return localVarFp.resumeCreationMyDataGet(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        resumeCreationMyResumeGet(options?: any): AxiosPromise<Array<ResumeData>> {
+            return localVarFp.resumeCreationMyResumeGet(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {ResumeData} [resumeData] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        resumeCreationSaveDataPost(resumeData?: ResumeData, options?: any): AxiosPromise<void> {
+            return localVarFp.resumeCreationSaveDataPost(resumeData, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {ResumeData} [resumeData] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        resumeCreationSavePost(resumeData?: ResumeData, options?: any): AxiosPromise<void> {
+            return localVarFp.resumeCreationSavePost(resumeData, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -619,6 +1077,17 @@ export const ResumeCreationApiFactory = function (configuration?: Configuration,
  * @extends {BaseAPI}
  */
 export class ResumeCreationApi extends BaseAPI {
+    /**
+     * 
+     * @param {CreateResumeRequest} [createResumeRequest] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ResumeCreationApi
+     */
+    public resumeCreationCreatePost(createResumeRequest?: CreateResumeRequest, options?: AxiosRequestConfig) {
+        return ResumeCreationApiFp(this.configuration).resumeCreationCreatePost(createResumeRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * 
      * @param {string} [name] 
@@ -636,8 +1105,40 @@ export class ResumeCreationApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ResumeCreationApi
      */
-    public resumeCreationPost(options?: AxiosRequestConfig) {
-        return ResumeCreationApiFp(this.configuration).resumeCreationPost(options).then((request) => request(this.axios, this.basePath));
+    public resumeCreationMyDataGet(options?: AxiosRequestConfig) {
+        return ResumeCreationApiFp(this.configuration).resumeCreationMyDataGet(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ResumeCreationApi
+     */
+    public resumeCreationMyResumeGet(options?: AxiosRequestConfig) {
+        return ResumeCreationApiFp(this.configuration).resumeCreationMyResumeGet(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {ResumeData} [resumeData] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ResumeCreationApi
+     */
+    public resumeCreationSaveDataPost(resumeData?: ResumeData, options?: AxiosRequestConfig) {
+        return ResumeCreationApiFp(this.configuration).resumeCreationSaveDataPost(resumeData, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {ResumeData} [resumeData] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ResumeCreationApi
+     */
+    public resumeCreationSavePost(resumeData?: ResumeData, options?: AxiosRequestConfig) {
+        return ResumeCreationApiFp(this.configuration).resumeCreationSavePost(resumeData, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

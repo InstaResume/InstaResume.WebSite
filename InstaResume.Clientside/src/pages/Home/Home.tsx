@@ -7,6 +7,7 @@ import {
   alpha,
 } from "@mui/material";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Home: React.FC = () => {
   return (
@@ -72,9 +73,11 @@ const Home: React.FC = () => {
             useFlexGap
             sx={{ pt: 2, width: { xs: "100%", sm: "auto" } }}
           >
-            <Button variant="contained" color="primary">
-              Create a Resume
-            </Button>
+            <Link to="/resume-creation">
+              <Button variant="contained" color="primary">
+                Create a Resume
+              </Button>
+            </Link>
           </Stack>
         </Stack>
         <Box

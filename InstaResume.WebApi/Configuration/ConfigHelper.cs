@@ -29,4 +29,11 @@ public class ConfigHelper : IConfigHelper
         _configuration.GetSection(pdfGeneratorConfig.ConfigKey).Bind(pdfGeneratorConfig);
         return pdfGeneratorConfig;
     }
+    
+    public DatabaseConfig GetDatabaseConfig()
+    {
+        var mongoDbConfig = new DatabaseConfig();
+        _configuration.GetSection(mongoDbConfig.ConfigKey).Bind(mongoDbConfig);
+        return mongoDbConfig;
+    }
 }

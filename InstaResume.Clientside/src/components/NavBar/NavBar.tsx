@@ -5,6 +5,7 @@ import {
   Container,
   Divider,
   Drawer,
+  Menu,
   MenuItem,
   PaletteMode,
   Toolbar,
@@ -13,9 +14,20 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import React, { useState } from "react";
 import ToggleColorMode from "../ToggleColorMode/ToggleColorMode";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LogoLight from "../../assets/logos/logo-light.svg";
 import LogoDark from "../../assets/logos/logo-dark.svg";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../redux/reducer/rootReducer";
+import {
+  Archive,
+  Edit,
+  FileCopy,
+  KeyboardArrowDown,
+  Logout,
+  MoreHoriz,
+} from "@mui/icons-material";
+import { logout } from "../../redux/action/authActions";
 
 interface NavigationBarProps {
   mode: PaletteMode;
@@ -26,6 +38,12 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
   mode,
   toggleColorMode,
 }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const isAuthenticated = useSelector(
+    (state: RootState) => state.auth.isAuthenticated
+  );
+  const userName = useSelector((state: RootState) => state.auth.userName);
   const [open, setOpen] = useState(false);
 
   const toggleDrawer = (newOpen: boolean) => () => {
@@ -37,6 +55,23 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
     height: "auto",
     cursor: "pointer",
     padding: "4px",
+  };
+
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const isDropdownOpen = Boolean(anchorEl);
+
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("x-token");
+    dispatch(logout());
+    navigate(0);
   };
 
   const scrollToSection = (sectionId: string) => {
@@ -134,15 +169,54 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
               }}
             >
               <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} />
-              <Button
-                color="primary"
-                variant="text"
-                size="small"
-                component="a"
-                href="/login"
-              >
-                Login
-              </Button>
+              {isAuthenticated ? (
+                <div>
+                  <Button
+                    id="demo-customized-button"
+                    aria-controls={
+                      isDropdownOpen ? "demo-customized-menu" : undefined
+                    }
+                    aria-haspopup="true"
+                    aria-expanded={isDropdownOpen ? "true" : undefined}
+                    variant="text"
+                    disableElevation
+                    onClick={handleClick}
+                    endIcon={<KeyboardArrowDown />}
+                  >
+                    Hi, {userName}
+                  </Button>
+                  <Menu
+                    id="demo-customized-menu"
+                    MenuListProps={{
+                      "aria-labelledby": "demo-customized-button",
+                    }}
+                    anchorEl={anchorEl}
+                    open={isDropdownOpen}
+                    onClose={handleClose}
+                  >
+                    <MenuItem onClick={handleClose} disableRipple>
+                      <FileCopy />
+                      My Resume
+                    </MenuItem>
+                    <Divider sx={{ my: 0.5 }} />
+                    <MenuItem onClick={handleLogout} disableRipple>
+                      <Logout />
+                      Logout
+                    </MenuItem>
+                  </Menu>
+                </div>
+              ) : (
+                <Button
+                  color="primary"
+                  variant="text"
+                  size="small"
+                  component="a"
+                  href="/login"
+                >
+                  Login
+                </Button>
+              )}
+
               <Button
                 color="primary"
                 variant="contained"

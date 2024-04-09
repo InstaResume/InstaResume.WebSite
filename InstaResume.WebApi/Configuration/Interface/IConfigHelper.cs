@@ -4,4 +4,5 @@ public interface IConfigHelper
 {
     AuthenticationConfig GetAuthenticationConfig();
     PdfGeneratorConfig GetPdfGeneratorConfig();
+    DatabaseConfig GetDatabaseConfig();
 }
