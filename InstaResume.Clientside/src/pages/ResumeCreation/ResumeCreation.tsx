@@ -30,8 +30,7 @@ import { domainName } from "../../API";
 
 const ResumeCreation: React.FC = () => {
   const navigate = useNavigate();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [resumeFilename, setResumeFilename] = useState("Untitled");
+  const [resumeFilename] = useState("Untitled");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -40,22 +39,32 @@ const ResumeCreation: React.FC = () => {
   const [city, setCity] = useState("");
   const [professionalSummary, setProfessionalSummary] = useState("");
   const [socialLinks, setSocialLinks] = useState<string[]>([]);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [allSkills, setAllSkills] = useState([]);
+  const [allSkills, setAllSkills] = useState<string[]>([]);
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
   const [workExperiences, setWorkExperiences] = useState<WorkExperience[]>([]);
   const [education, setEducation] = useState<Education[]>([]);
   const [projects, setProject] = useState<Project[]>([]);
   const [certificates, setCertificates] = useState<Certificate[]>([]);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const resumeId = searchParams.get("resumeId");
 
   useEffect(() => {
     if (!resumeId) return;
     console.log(resumeId);
   }, [resumeId]);
+
+  useEffect(() => {
+    setAllSkills([
+      "Python",
+      "Java",
+      "JavaScript",
+      "React",
+      "Angular",
+      "Vue",
+      "NodeJS",
+    ]);
+  }, []);
 
   const DownloadResume = async () => {
     fetch(`${domainName}/ResumeCreation/create`, {
