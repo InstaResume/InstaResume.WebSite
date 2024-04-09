@@ -7,15 +7,15 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["InstaResume.WebSite/InstaResume.WebSite.csproj", "InstaResume.WebSite/"]
-RUN dotnet restore "InstaResume.WebSite/InstaResume.WebSite.csproj"
+COPY ["InstaResume.WebApi/InstaResume.WebApi.csproj", "InstaResume.WebApi/"]
+RUN dotnet restore "InstaResume.WebApi/InstaResume.WebApi.csproj"
 COPY . .
-WORKDIR "/src/InstaResume.WebSite"
-RUN dotnet build "InstaResume.WebSite.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/InstaResume.WebApi"
+RUN dotnet build "InstaResume.WebApi.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "InstaResume.WebSite.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "InstaResume.WebApi.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
@@ -23,4 +23,4 @@ COPY --from=publish /app/publish .
 
 ENV ASPNETCORE_ENVIRONMENT=Production
 
-ENTRYPOINT ["dotnet", "InstaResume.WebSite.dll"]
+ENTRYPOINT ["dotnet", "InstaResume.WebApi.dll"]
