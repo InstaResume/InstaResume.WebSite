@@ -1,6 +1,8 @@
 import {
   Add,
   ArrowBack,
+  CloudDone,
+  CloudSync,
   Download,
   ExpandMore,
   GridView,
@@ -36,10 +38,23 @@ import {
   convertRtfToHtml,
   convertToMonthYear,
 } from "../../utils/handlebarsUtil";
-import { GetGenDescriptionRequest } from "../../API/generated";
+import {
+  EducationObject,
+  GetGenDescriptionRequest,
+  ProjectObject,
+  ResumeData,
+  WorkExperienceObject,
+} from "../../API/generated";
+import { RootState } from "../../redux/reducer/rootReducer";
+import { useSelector } from "react-redux";
 
 const ResumeCreation: React.FC = () => {
   const navigate = useNavigate();
+  const [enableAutoSave, setEnableAutoSave] = useState(false);
+  const isAuthenticated = useSelector(
+    (state: RootState) => state.auth.isAuthenticated
+  );
+  const [isSaving, setSaving] = useState(false);
   const [resumeFilename] = useState("Untitled");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -60,9 +75,22 @@ const ResumeCreation: React.FC = () => {
   const resumeId = searchParams.get("resumeId");
 
   useEffect(() => {
-    if (!resumeId) return;
+    if (!isAuthenticated) return;
+    if (!resumeId) {
+      resumeCreationApi.resumeCreationMyDataGet().then((res) => {
+        setFirstName(res.data.firstName ?? "");
+        setLastName(res.data.lastName ?? "");
+        setEmail(res.data.email ?? "");
+        setPhone(res.data.phone ?? "");
+        setCountry(res.data.country ?? "");
+        setCity(res.data.city ?? "");
+        setProfessionalSummary(res.data.professionalSummary ?? "");
+        setSelectedSkills(res.data.skills ?? []);
+      });
+    }
+    setEnableAutoSave(true);
     console.log(resumeId);
-  }, [resumeId]);
+  }, [isAuthenticated, resumeId]);
 
   useEffect(() => {
     setAllSkills([
@@ -205,6 +233,94 @@ const ResumeCreation: React.FC = () => {
   Handlebars.registerHelper("toMonthYear", function (date) {
     return convertToMonthYear(date);
   });
+
+  const convertToEducationObject = (
+    education: Education[]
+  ): EducationObject[] => {
+    return education.map((edu) => {
+      return {
+        major: edu.major,
+        degree: edu.degree,
+        school: edu.school,
+        startDate: edu.startDate?.toString(),
+        endDate: edu.endDate?.toString(),
+        description: edu.description,
+        isCurrentlyStudying: edu.isCurrentlyStudying,
+      };
+    });
+  };
+
+  const convertToProjectObject = (projects: Project[]): ProjectObject[] => {
+    return projects.map((project) => {
+      return {
+        title: project.title,
+        description: project.description,
+        startDate: project.startDate?.toString(),
+        endDate: project.endDate?.toString(),
+        links: project.links,
+      };
+    });
+  };
+
+  const convertToWorkExperienceObject = (
+    workExperiences: WorkExperience[]
+  ): WorkExperienceObject[] => {
+    return workExperiences.map((workExperience) => {
+      return {
+        jobTitle: workExperience.jobTitle,
+        position: workExperience.position,
+        employer: workExperience.employer,
+        startDate: workExperience.startDate?.toString(),
+        endDate: workExperience.endDate?.toString(),
+        description: workExperience.description,
+        isCurrentlyWorking: workExperience.isCurrentlyWorking,
+        city: workExperience.city,
+      };
+    });
+  };
+
+  useEffect(() => {
+    if (!isAuthenticated || !enableAutoSave) return;
+    setSaving(true);
+    const handler = setTimeout(async () => {
+      const resumeData: ResumeData = {
+        firstName,
+        lastName,
+        email,
+        phone,
+        country,
+        city,
+        professionalSummary,
+        skills: selectedSkills,
+        workExperience: convertToWorkExperienceObject(workExperiences),
+        education: convertToEducationObject(education),
+        projects: convertToProjectObject(projects),
+        certificates,
+        socialLinks,
+      };
+      await resumeCreationApi.resumeCreationSaveDataPost(resumeData);
+      setSaving(false);
+    }, 1000);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [
+    certificates,
+    city,
+    country,
+    education,
+    email,
+    firstName,
+    isAuthenticated,
+    lastName,
+    phone,
+    professionalSummary,
+    projects,
+    selectedSkills,
+    socialLinks,
+    workExperiences,
+  ]);
 
   const [data, setData] = useState({
     firstName,
@@ -839,6 +955,7 @@ const ResumeCreation: React.FC = () => {
             </Link>
           </div>
           <div>
+            {isSaving ? <CloudSync /> : <CloudDone />}
             <Button
               variant="contained"
               startIcon={<Download />}

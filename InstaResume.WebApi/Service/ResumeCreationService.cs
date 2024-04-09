@@ -48,12 +48,23 @@ public class ResumeCreationService : IResumeCreationService
     
     public async Task SaveResumeData(ResumeData resumeData, ClaimsPrincipal? claimsPrincipal)
     {
-        if (claimsPrincipal is not null)
+        if (claimsPrincipal is null) return;
+        
+        var userId = claimsPrincipal.Claims.FirstOrDefault(c => c.Type == "Id");
+        resumeData.OwnerId = userId?.Value;
+        if (userId is null) return;
+        
+        var existingData = await _resumeCreationRepository.GetResumeDataFromUserId(userId.Value);
+        if (existingData == null)
         {
-            var userId = claimsPrincipal.Claims.FirstOrDefault(c => c.Type == "Id");
-            resumeData.OwnerId = userId?.Value;
+            await _resumeCreationRepository.SaveResumeData(resumeData);
         }
-        await _resumeCreationRepository.SaveResumeData(resumeData);
+        else
+        {
+            resumeData.Id = existingData.Id;
+            await _resumeCreationRepository.UpdateResumeData(resumeData);
+        }
+        
     }
     
     public async Task<List<ResumeData>> GetAllResumesFromUser(ClaimsPrincipal? claimsPrincipal)

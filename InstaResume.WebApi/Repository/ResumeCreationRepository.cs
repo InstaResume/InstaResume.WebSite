@@ -27,6 +27,11 @@ public class ResumeCreationRepository : IResumeCreationRepository
     {
         await _resumeDataCollection.InsertOneAsync(resumeData);
     }
+    
+    public async Task UpdateResumeData(ResumeData resumeData)
+    {
+        await _resumeDataCollection.ReplaceOneAsync(r => r.OwnerId == resumeData.OwnerId, resumeData);
+    }
 
     public async Task<List<ResumeData>> GetAllResumesFromUserId(string userId)
     {
