@@ -33,7 +33,8 @@ const Contribute: React.FC = () => {
             ? 'linear-gradient(180deg, #CEE5FD, #FFF)'
             : `linear-gradient(#02294F, ${alpha('#090E10', 0.0)})`,
         backgroundSize: '100% 20%',
-        backgroundRepeat: 'no-repeat'
+        backgroundRepeat: 'no-repeat',
+        height: '100vh'
       })}
     >
       <Container
@@ -73,7 +74,7 @@ const Contribute: React.FC = () => {
               </Button>
             </Grid>
             <Grid item xs={4}>
-              <Button variant="contained" color="primary" fullWidth>
+              <Button variant="contained" fullWidth>
                 Example
               </Button>
             </Grid>
@@ -84,7 +85,7 @@ const Contribute: React.FC = () => {
           sx={(theme) => ({
             mt: { xs: 2, sm: 4 },
             alignSelf: 'center',
-            height: { xs: 200, sm: 700 },
+            height: { xs: 200 },
             width: '100%',
             backgroundImage:
               theme.palette.mode === 'light'
