@@ -7,20 +7,29 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "gen-client": "openapi-generator-cli generate -i http://localhost:5186/swagger/v1/swagger.json -g typescript-axios -o src/API/generated --additional-properties=disallowAdditionalPropertiesIfNotPresent=false,supportsES6=true,typescriptThreePlus=true --enable-post-process-file --remove-operation-id-prefix"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.14",
     "@mui/material": "^5.15.14",
+    "@mui/styled-engine-sc": "^6.0.0-alpha.18",
+    "@mui/x-date-pickers": "^7.1.1",
+    "@openapitools/openapi-generator-cli": "^2.13.1",
     "@react-oauth/google": "^0.12.1",
     "axios": "^1.6.8",
+    "dayjs": "^1.11.10",
+    "file-saver": "^2.0.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.22.3"
+    "react-quill": "^2.0.0",
+    "react-router-dom": "^6.22.3",
+    "styled-components": "^6.1.8"
   },
   "devDependencies": {
+    "@types/file-saver": "^2.0.7",
     "@types/react": "^18.2.56",
     "@types/react-dom": "^18.2.19",
     "@typescript-eslint/eslint-plugin": "^7.0.2",

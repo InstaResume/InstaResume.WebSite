@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using InstaResume.WebSite.Configuration;
+using InstaResume.WebSite.Configuration.Interface;
 using InstaResume.WebSite.Service;
 using InstaResume.WebSite.Service.Interface;
 using InstaResume.WebSite.Utils;
@@ -7,14 +8,15 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddAuthentication()
-    .AddBearerToken()
-    .AddGoogle(googleOptions =>
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", corsPolicyBuilder =>
     {
-        var config = new ConfigHelper(builder.Configuration);
-        googleOptions.ClientId = config.GetGoogleAuthConfig().ClientId;
-        googleOptions.ClientSecret = config.GetGoogleAuthConfig().ClientSecret;
+        corsPolicyBuilder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
     });
+});
+builder.Services.AddAuthentication()
+    .AddBearerToken();
 builder.Services.AddAuthorization();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllers();
@@ -38,6 +40,8 @@ builder.Services.AddSwaggerGen(options =>
 });
 builder.Services.AddSingleton<ClaimsPrincipal>();
 builder.Services.AddSingleton<IAuthService, AuthService>();
+builder.Services.AddSingleton<IConfigHelper, ConfigHelper>();
+builder.Services.AddSingleton<IResumeCreationService, ResumeCreationService>();
 
 var app = builder.Build();
 
@@ -48,6 +52,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("AllowAll");
 app.UseAuthentication();
 app.UseAuthorization();
 

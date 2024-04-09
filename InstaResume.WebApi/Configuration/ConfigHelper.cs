@@ -12,21 +12,21 @@ public class ConfigHelper : IConfigHelper
         _configuration = configuration;
         _authenticationConfig = new AuthenticationConfig();
     }
-
-    public JwtConfig GetJwtConfig()
-    {
-        var jwtConfig = new JwtConfig();
-        _configuration.GetSection(jwtConfig.ConfigKey).Bind(jwtConfig);
-        return jwtConfig;
-    }
     
-    public GoogleAuthConfig GetGoogleAuthConfig()
+    public AuthenticationConfig GetAuthenticationConfig()
     {
         if (_authenticationConfig.IsInitialized)
         {
-            return _authenticationConfig.Google;
+            return _authenticationConfig;
         }
         _configuration.GetSection(_authenticationConfig.ConfigKey).Bind(_authenticationConfig);
-        return _authenticationConfig.Google;
+        return _authenticationConfig;
+    }
+    
+    public PdfGeneratorConfig GetPdfGeneratorConfig()
+    {
+        var pdfGeneratorConfig = new PdfGeneratorConfig();
+        _configuration.GetSection(pdfGeneratorConfig.ConfigKey).Bind(pdfGeneratorConfig);
+        return pdfGeneratorConfig;
     }
 }

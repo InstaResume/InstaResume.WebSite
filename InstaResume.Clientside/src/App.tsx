@@ -16,6 +16,8 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 import { lazyLoadRoutes } from "./routes/lazyLoadRoute";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 const App = () => {
   const [mode, setMode] = React.useState<PaletteMode>("light");
@@ -49,11 +51,13 @@ const App = () => {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <RouterProvider
-          router={routes}
-          fallbackElement={<CircularProgress />}
-        />
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <CssBaseline />
+          <RouterProvider
+            router={routes}
+            fallbackElement={<CircularProgress />}
+          />
+        </LocalizationProvider>
       </ThemeProvider>
     </>
   );
