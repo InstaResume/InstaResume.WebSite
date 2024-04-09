@@ -26,12 +26,17 @@ import dayjs from "dayjs";
 import { Education } from "../../models/Education";
 import { Project } from "../../models/Project";
 import { Certificate } from "../../models/Certificates";
-import { domainName, resumeCreationApi } from "../../API";
+import {
+  descriptionGeneratorApi,
+  domainName,
+  resumeCreationApi,
+} from "../../API";
 import Handlebars from "handlebars";
 import {
   convertRtfToHtml,
   convertToMonthYear,
 } from "../../utils/handlebarsUtil";
+import { GetGenDescriptionRequest } from "../../API/generated";
 
 const ResumeCreation: React.FC = () => {
   const navigate = useNavigate();
@@ -121,6 +126,24 @@ const ResumeCreation: React.FC = () => {
       isCurrentlyWorking: false,
       city: "",
     });
+    setWorkExperiences(newWorkExperiences);
+  };
+
+  const generateWorkExpDescription = async (
+    workExperience: WorkExperience,
+    index: number
+  ) => {
+    const request: GetGenDescriptionRequest = {
+      draftDescription: workExperience.description,
+      jobPosition: workExperience.jobTitle,
+      company: workExperience.employer,
+      keywords: [],
+    };
+    const response =
+      await descriptionGeneratorApi.descriptionGeneratorCreatePost(request);
+    const newWorkExperiences = [...workExperiences];
+    newWorkExperiences[index].description =
+      response.data.description ?? newWorkExperiences[index].description;
     setWorkExperiences(newWorkExperiences);
   };
 
@@ -536,6 +559,13 @@ const ResumeCreation: React.FC = () => {
                         setWorkExperiences(newWorkExperiences);
                       }}
                     />
+                    <Button
+                      onClick={() =>
+                        generateWorkExpDescription(workExperience, index)
+                      }
+                    >
+                      Generate Description
+                    </Button>
                   </div>
                 </AccordionDetails>
               </Accordion>

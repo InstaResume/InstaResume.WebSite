@@ -4,6 +4,7 @@ export const convertRtfToHtml = (rtf: string) => {
 };
 
 export const convertToMonthYear = (date: string) => {
-  const [year, month] = date.split("-");
-  return `${month}/${year}`;
+  if (date === undefined) return;
+  const dateObject = new Date(date);
+  return `${dateObject.getMonth() + 1}/${dateObject.getFullYear()}`;
 };
