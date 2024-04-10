@@ -6,4 +6,5 @@ public interface IConfigHelper
     PdfGeneratorConfig GetPdfGeneratorConfig();
     DatabaseConfig GetDatabaseConfig();
     OpenAiConfig GetOpenAiConfig();
+    AWSConfig GetAWSConfig();
 }

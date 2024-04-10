@@ -69,6 +69,9 @@ builder.Services.AddSingleton<IMongoConnectionProvider, MongoConnectionProvider>
 builder.Services.AddSingleton<IResumeCreationRepository, ResumeCreationRepository>();
 builder.Services.AddSingleton<IUserRepository, UserRepository>();
 builder.Services.AddSingleton<IDescriptionGeneratorService, DescriptionGeneratorService>();
+builder.Services.AddSingleton<IS3ConnectionProvider, S3ConnectionProvider>();
+builder.Services.AddSingleton<ITemplateService, TemplateService>();
+builder.Services.AddSingleton<ITemplateRepository, TemplateRepository>();
 
 var app = builder.Build();
 

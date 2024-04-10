@@ -43,4 +43,11 @@ public class ConfigHelper : IConfigHelper
         _configuration.GetSection(openAiConfig.ConfigKey).Bind(openAiConfig);
         return openAiConfig;
     }
+    
+    public AWSConfig GetAWSConfig()
+    {
+        var awsConfig = new AWSConfig();
+        _configuration.GetSection(awsConfig.ConfigKey).Bind(awsConfig);
+        return awsConfig;
+    }
 }

@@ -9,7 +9,8 @@ import {
   styled,
 } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import React from "react";
+import React, { ChangeEvent } from "react";
+import { domainName } from "../../API";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -23,7 +24,34 @@ const VisuallyHiddenInput = styled("input")({
   width: 1,
 });
 
+function uploadFile(file: File) {
+  const formData = new FormData();
+  formData.append("file", file);
+
+  return fetch(`${domainName}/Template/upload`, {
+    method: "POST",
+    body: formData,
+  });
+}
+
 const Contribute: React.FC = () => {
+  const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files === null) return;
+
+    const file = e.target.files[0];
+    if (!file) return;
+
+    try {
+      const response = await uploadFile(file);
+      if (response.ok) {
+        alert("File uploaded successfully");
+      } else {
+        alert("Failed to upload file: " + response.statusText);
+      }
+    } catch (error) {
+      alert("An error occurred while uploading the file: " + error);
+    }
+  };
   return (
     <Box
       sx={(theme) => ({
@@ -70,7 +98,7 @@ const Contribute: React.FC = () => {
                 fullWidth
               >
                 Upload File
-                <VisuallyHiddenInput type="file" />
+                <VisuallyHiddenInput type="file" onChange={handleFileChange} />
               </Button>
             </Grid>
             <Grid item xs={4}>
