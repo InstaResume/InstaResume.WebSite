@@ -1,3 +1,4 @@
+using InstaResume.WebSite.Model;
 using InstaResume.WebSite.Service.Interface;
 using Microsoft.AspNetCore.Mvc;
 
@@ -60,5 +61,25 @@ public class TemplateController : ControllerBase
         {
             return StatusCode(500, $"Error downloading file: {ex.Message}");
         }
+    }
+    
+    [HttpGet("source/{id}")]
+    public async Task<ActionResult<TemplateSourceResponse>> GetTemplateSource(string id)
+    {
+        try
+        {
+            var source = await _templateService.GetTemplateSource(id);
+            return Ok(new TemplateSourceResponse { Source = source });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Error getting template source: {ex.Message}");
+        }
+    }
+    
+    [HttpGet]
+    public async Task<ActionResult<List<TemplateData>>> GetTemplates()
+    {
+        return Ok(await _templateService.GetTemplates());
     }
 }

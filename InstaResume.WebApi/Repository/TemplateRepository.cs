@@ -20,4 +20,14 @@ public class TemplateRepository : ITemplateRepository
     {
         await _templateCollection.InsertOneAsync(templateData);
     }
+
+    public async Task<TemplateData> GetTemplateDataAsync(string id)
+    {
+        return await _templateCollection.Find(t => t.Id == id).FirstOrDefaultAsync();
+    }
+
+    public Task<List<TemplateData>> GetAllTemplates()
+    {
+        return _templateCollection.Find(t => true).ToListAsync();
+    }
 }

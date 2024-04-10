@@ -1,3 +1,4 @@
+using System.Text;
 using Amazon;
 using Amazon.S3;
 using Amazon.S3.Model;
@@ -13,6 +14,20 @@ public class S3ConnectionProvider : IS3ConnectionProvider
     public S3ConnectionProvider(IConfigHelper configHelper)
     {
         _configHelper = configHelper;
+    }
+
+    public async Task<string> GetContentFromFileFromS3Async(string bucketName, string keyName)
+    {
+        using var client = new AmazonS3Client(_configHelper.GetAWSConfig().AccessKey, _configHelper.GetAWSConfig().SecretKey, RegionEndpoint.APSoutheast1);
+        var request = new GetObjectRequest
+        {
+            BucketName = bucketName,
+            Key = keyName
+        };
+
+        using var response = await client.GetObjectAsync(request);
+        using var reader = new StreamReader(response.ResponseStream, Encoding.UTF8);
+        return await reader.ReadToEndAsync();
     }
     
     public async Task<Stream> DownloadFileFromS3Async(string bucketName, string keyName)

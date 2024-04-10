@@ -32,6 +32,7 @@ import {
   descriptionGeneratorApi,
   domainName,
   resumeCreationApi,
+  templateApi,
 } from "../../API";
 import Handlebars from "handlebars";
 import {
@@ -73,6 +74,7 @@ const ResumeCreation: React.FC = () => {
 
   const [searchParams] = useSearchParams();
   const resumeId = searchParams.get("resumeId");
+  const templateId = searchParams.get("templateId");
 
   useEffect(() => {
     if (!isAuthenticated) return;
@@ -311,6 +313,7 @@ const ResumeCreation: React.FC = () => {
     country,
     education,
     email,
+    enableAutoSave,
     firstName,
     isAuthenticated,
     lastName,
@@ -371,10 +374,11 @@ const ResumeCreation: React.FC = () => {
   ]);
 
   useEffect(() => {
-    resumeCreationApi.resumeCreationTemplateSourceGet("test").then((res) => {
+    const id = templateId ?? "66160a3ddb095d0df630635e";
+    templateApi.templateSourceIdGet(id).then((res) => {
       setSource(res.data.source ?? "");
     });
-  }, []);
+  }, [templateId]);
 
   useEffect(() => {
     const timer = setTimeout(() => {

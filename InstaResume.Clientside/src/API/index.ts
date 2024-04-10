@@ -2,6 +2,7 @@ import {
   AuthApi,
   DescriptionGeneratorApi,
   ResumeCreationApi,
+  TemplateApi,
 } from "./generated";
 
 export const domainName =
@@ -13,3 +14,4 @@ export const descriptionGeneratorApi = new DescriptionGeneratorApi(
   undefined,
   domainName
 );
+export const templateApi = new TemplateApi(undefined, domainName);

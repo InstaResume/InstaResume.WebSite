@@ -340,6 +340,43 @@ export interface ResumeData {
 /**
  * 
  * @export
+ * @interface TemplateData
+ */
+export interface TemplateData {
+    /**
+     * 
+     * @type {string}
+     * @memberof TemplateData
+     */
+    'id'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof TemplateData
+     */
+    'fileName'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof TemplateData
+     */
+    'url'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof TemplateData
+     */
+    'thumbnailUrl'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof TemplateData
+     */
+    'score'?: number;
+}
+/**
+ * 
+ * @export
  * @interface TemplateSourceResponse
  */
 export interface TemplateSourceResponse {
@@ -1303,6 +1340,338 @@ export class ResumeCreationApi extends BaseAPI {
      */
     public resumeCreationTemplateSourceGet(name?: string, options?: AxiosRequestConfig) {
         return ResumeCreationApiFp(this.configuration).resumeCreationTemplateSourceGet(name, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * TemplateApi - axios parameter creator
+ * @export
+ */
+export const TemplateApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        templateDownloadExampleGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/Template/download-example`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} keyName 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        templateDownloadKeyNameGet: async (keyName: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'keyName' is not null or undefined
+            assertParamExists('templateDownloadKeyNameGet', 'keyName', keyName)
+            const localVarPath = `/Template/download/{keyName}`
+                .replace(`{${"keyName"}}`, encodeURIComponent(String(keyName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        templateGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/Template`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        templateSourceIdGet: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('templateSourceIdGet', 'id', id)
+            const localVarPath = `/Template/source/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        templateUploadPost: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/Template/upload`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * TemplateApi - functional programming interface
+ * @export
+ */
+export const TemplateApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = TemplateApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async templateDownloadExampleGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.templateDownloadExampleGet(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} keyName 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async templateDownloadKeyNameGet(keyName: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.templateDownloadKeyNameGet(keyName, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async templateGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<TemplateData>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.templateGet(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async templateSourceIdGet(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TemplateSourceResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.templateSourceIdGet(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async templateUploadPost(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.templateUploadPost(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * TemplateApi - factory interface
+ * @export
+ */
+export const TemplateApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = TemplateApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        templateDownloadExampleGet(options?: any): AxiosPromise<void> {
+            return localVarFp.templateDownloadExampleGet(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} keyName 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        templateDownloadKeyNameGet(keyName: string, options?: any): AxiosPromise<void> {
+            return localVarFp.templateDownloadKeyNameGet(keyName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        templateGet(options?: any): AxiosPromise<Array<TemplateData>> {
+            return localVarFp.templateGet(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        templateSourceIdGet(id: string, options?: any): AxiosPromise<TemplateSourceResponse> {
+            return localVarFp.templateSourceIdGet(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        templateUploadPost(options?: any): AxiosPromise<void> {
+            return localVarFp.templateUploadPost(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * TemplateApi - object-oriented interface
+ * @export
+ * @class TemplateApi
+ * @extends {BaseAPI}
+ */
+export class TemplateApi extends BaseAPI {
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TemplateApi
+     */
+    public templateDownloadExampleGet(options?: AxiosRequestConfig) {
+        return TemplateApiFp(this.configuration).templateDownloadExampleGet(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} keyName 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TemplateApi
+     */
+    public templateDownloadKeyNameGet(keyName: string, options?: AxiosRequestConfig) {
+        return TemplateApiFp(this.configuration).templateDownloadKeyNameGet(keyName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TemplateApi
+     */
+    public templateGet(options?: AxiosRequestConfig) {
+        return TemplateApiFp(this.configuration).templateGet(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TemplateApi
+     */
+    public templateSourceIdGet(id: string, options?: AxiosRequestConfig) {
+        return TemplateApiFp(this.configuration).templateSourceIdGet(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TemplateApi
+     */
+    public templateUploadPost(options?: AxiosRequestConfig) {
+        return TemplateApiFp(this.configuration).templateUploadPost(options).then((request) => request(this.axios, this.basePath));
     }
 }
 

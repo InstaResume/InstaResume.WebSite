@@ -16,6 +16,17 @@ public class TemplateService : ITemplateService
         _s3ConnectionProvider = s3ConnectionProvider;
         _templateRepository = templateRepository;
     }
+
+    public Task<List<TemplateData>> GetTemplates()
+    {
+        return _templateRepository.GetAllTemplates();
+    }
+
+    public async Task<string> GetTemplateSource(string id)
+    {
+        var template = await _templateRepository.GetTemplateDataAsync(id);
+        return await _s3ConnectionProvider.GetContentFromFileFromS3Async(_bucketName, template.FileName);
+    }
     
     public async Task<Stream> DownloadFileFromS3Async(string keyName)
     {
