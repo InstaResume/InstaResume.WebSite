@@ -33,4 +33,32 @@ public class TemplateController : ControllerBase
 
         return Ok("File uploaded successfully.");
     }
+    
+    [HttpGet("download/{keyName}")]
+    public async Task<IActionResult> DownloadFileFromS3(string keyName)
+    {
+        try
+        {
+            var stream = await _templateService.DownloadFileFromS3Async(keyName);
+            return File(stream, "application/octet-stream", keyName);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Error downloading file: {ex.Message}");
+        }
+    }
+    
+    [HttpGet("download-example")]
+    public async Task<IActionResult> DownloadFileFromS3()
+    {
+        try
+        {
+            var stream = await _templateService.DownloadExampleTemplateFile();
+            return File(stream, "application/octet-stream", "resume.hbs");
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Error downloading file: {ex.Message}");
+        }
+    }
 }

@@ -15,9 +15,9 @@ public class S3ConnectionProvider : IS3ConnectionProvider
         _configHelper = configHelper;
     }
     
-    public async Task DownloadFileFromS3Async(string bucketName, string keyName, string localFilePath)
+    public async Task<Stream> DownloadFileFromS3Async(string bucketName, string keyName)
     {
-        using var client = new AmazonS3Client(_configHelper.GetAWSConfig().AccessKey, _configHelper.GetAWSConfig().SecretKey);
+        using var client = new AmazonS3Client(_configHelper.GetAWSConfig().AccessKey, _configHelper.GetAWSConfig().SecretKey, RegionEndpoint.APSoutheast1);
         var request = new GetObjectRequest
         {
             BucketName = bucketName,
@@ -25,7 +25,10 @@ public class S3ConnectionProvider : IS3ConnectionProvider
         };
 
         using var response = await client.GetObjectAsync(request);
-        await response.WriteResponseStreamToFileAsync(localFilePath, false, CancellationToken.None);
+        var stream = new MemoryStream();
+        await response.ResponseStream.CopyToAsync(stream);
+        stream.Seek(0, SeekOrigin.Begin); // Reset the stream position to the beginning
+        return stream;
     }
     
     public async Task<PutObjectResponse> UploadFileToS3Async(string bucketName, string keyName, Stream fileStream)

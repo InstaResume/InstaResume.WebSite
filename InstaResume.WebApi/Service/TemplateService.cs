@@ -17,9 +17,19 @@ public class TemplateService : ITemplateService
         _templateRepository = templateRepository;
     }
     
+    public async Task<Stream> DownloadFileFromS3Async(string keyName)
+    {
+        return await _s3ConnectionProvider.DownloadFileFromS3Async(_bucketName, "resume.hbs");
+    }
+    
+    public async Task<Stream> DownloadExampleTemplateFile()
+    {
+        return await _s3ConnectionProvider.DownloadFileFromS3Async(_bucketName, "resume.hbs");
+    }
+    
     public async Task UploadFileToS3Async(Stream fileStream)
     {
-        var fileName = Guid.NewGuid().ToString();
+        var fileName = Guid.NewGuid() + ".hbs";
         await _s3ConnectionProvider.UploadFileToS3Async(_bucketName, fileName,
             fileStream);
         await _templateRepository.UploadTemplateAsync(new TemplateData

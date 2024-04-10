@@ -11,6 +11,7 @@ import {
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import React, { ChangeEvent } from "react";
 import { domainName } from "../../API";
+import saveAs from "file-saver";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -35,6 +36,22 @@ function uploadFile(file: File) {
 }
 
 const Contribute: React.FC = () => {
+  const DownloadExampleTemplate = async () => {
+    fetch(`${domainName}/Template/download-example`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to download file");
+        }
+        return response.blob();
+      })
+      .then((blob) => {
+        saveAs(blob, "template-example.hbs");
+      })
+      .catch((error) => {
+        console.error("Error downloading file:", error);
+      });
+  };
+
   const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files === null) return;
 
@@ -102,7 +119,11 @@ const Contribute: React.FC = () => {
               </Button>
             </Grid>
             <Grid item xs={4}>
-              <Button variant="contained" fullWidth>
+              <Button
+                variant="contained"
+                fullWidth
+                onClick={DownloadExampleTemplate}
+              >
                 Example
               </Button>
             </Grid>
