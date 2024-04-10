@@ -374,7 +374,7 @@ const ResumeCreation: React.FC = () => {
   ]);
 
   useEffect(() => {
-    const id = templateId ?? "66160a3ddb095d0df630635e";
+    const id = templateId ?? "6616177adf3a8bcfcde1b104";
     templateApi.templateSourceIdGet(id).then((res) => {
       setSource(res.data.source ?? "");
     });

@@ -38,15 +38,18 @@ public class TemplateService : ITemplateService
         return await _s3ConnectionProvider.DownloadFileFromS3Async(_bucketName, "resume.hbs");
     }
     
-    public async Task UploadFileToS3Async(Stream fileStream)
+    public async Task UploadFileToS3Async(Stream fileStream1, Stream fileStream2, string imgFileType)
     {
-        var fileName = Guid.NewGuid() + ".hbs";
-        await _s3ConnectionProvider.UploadFileToS3Async(_bucketName, fileName,
-            fileStream);
+        var fileName = Guid.NewGuid().ToString();
+        await _s3ConnectionProvider.UploadFileToS3Async(_bucketName, fileName + ".hbs",
+            fileStream1);
+        await _s3ConnectionProvider.UploadFileToS3Async(_bucketName, fileName + "." + imgFileType,
+            fileStream2);
         await _templateRepository.UploadTemplateAsync(new TemplateData
         {
             FileName = fileName,
-            Url = $"https://{_bucketName}.s3.ap-southeast-1.amazonaws.com/{fileName}",
+            Url = $"https://{_bucketName}.s3.ap-southeast-1.amazonaws.com/{fileName}.hbs",
+            ThumbnailUrl = $"https://{_bucketName}.s3.ap-southeast-1.amazonaws.com/{fileName}.{imgFileType}",
             Score = 0
         });
     }

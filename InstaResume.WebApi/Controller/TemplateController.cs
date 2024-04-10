@@ -21,15 +21,19 @@ public class TemplateController : ControllerBase
     [Consumes("multipart/form-data")]
     public async Task<IActionResult> UploadFile()
     {
-        var formFile = Request.Form.Files[0];
-        if (formFile == null || formFile.Length <= 0)
+        var formFile1 = Request.Form.Files[0];
+        var formFile2 = Request.Form.Files[1];
+        if (formFile1 == null || formFile1.Length <= 0 || formFile2 == null || formFile2.Length <= 0)
         {
             return BadRequest("File is required.");
         }
 
-        using (var fileStream = formFile.OpenReadStream())
+        await using (var fileStream1 = formFile1.OpenReadStream())
         {
-            await _templateService.UploadFileToS3Async(fileStream);
+            await using(var fileStream2 = formFile2.OpenReadStream())
+            {
+                await _templateService.UploadFileToS3Async(fileStream1, fileStream2, formFile2.ContentType.Split("/")[1]);
+            }
         }
 
         return Ok("File uploaded successfully.");

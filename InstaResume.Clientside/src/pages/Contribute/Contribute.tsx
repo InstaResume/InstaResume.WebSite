@@ -6,36 +6,61 @@ import {
   Stack,
   Typography,
   alpha,
-  styled,
 } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import React, { ChangeEvent } from "react";
+import React, {
+  ChangeEvent,
+  SetStateAction,
+  useRef,
+  useState,
+  Dispatch,
+} from "react";
 import { domainName } from "../../API";
 import saveAs from "file-saver";
 
-const VisuallyHiddenInput = styled("input")({
-  clip: "rect(0 0 0 0)",
-  clipPath: "inset(50%)",
-  height: 1,
-  overflow: "hidden",
-  position: "absolute",
-  bottom: 0,
-  left: 0,
-  whiteSpace: "nowrap",
-  width: 1,
-});
-
-function uploadFile(file: File) {
-  const formData = new FormData();
-  formData.append("file", file);
-
-  return fetch(`${domainName}/Template/upload`, {
-    method: "POST",
-    body: formData,
-  });
-}
-
 const Contribute: React.FC = () => {
+  const [file1Name, setFile1Name] = useState("");
+  const [file2Name, setFile2Name] = useState("");
+  const fileInput1 = useRef<HTMLInputElement>(null);
+  const fileInput2 = useRef<HTMLInputElement>(null);
+
+  const handleUpload = async () => {
+    if (!fileInput1.current?.files || !fileInput2.current?.files) {
+      alert("Please select .hbs and image file to upload");
+      return;
+    }
+    if (!fileInput1.current?.files[0] || !fileInput2.current?.files[0]) {
+      alert("Please select .hbs and image file to upload");
+      return;
+    }
+    const formData = new FormData();
+    formData.append("file1", fileInput1.current.files[0]);
+    formData.append("file2", fileInput2.current.files[0]);
+    // Send formData to .NET
+    const response = await fetch(`${domainName}/Template/upload`, {
+      method: "POST",
+      body: formData,
+    });
+    try {
+      if (response.ok) {
+        alert("File uploaded successfully");
+      } else {
+        alert("Failed to upload file: " + response.statusText);
+      }
+    } catch (error) {
+      alert("An error occurred while uploading the file: " + error);
+    }
+  };
+
+  const handleFileChanges = (
+    event: ChangeEvent<HTMLInputElement>,
+    setFileName: Dispatch<SetStateAction<string>>
+  ) => {
+    if (!event.target.files) return;
+    const file = event.target.files[0];
+    setFileName(file.name);
+  };
+
   const DownloadExampleTemplate = async () => {
     fetch(`${domainName}/Template/download-example`)
       .then((response) => {
@@ -52,23 +77,6 @@ const Contribute: React.FC = () => {
       });
   };
 
-  const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files === null) return;
-
-    const file = e.target.files[0];
-    if (!file) return;
-
-    try {
-      const response = await uploadFile(file);
-      if (response.ok) {
-        alert("File uploaded successfully");
-      } else {
-        alert("Failed to upload file: " + response.statusText);
-      }
-    } catch (error) {
-      alert("An error occurred while uploading the file: " + error);
-    }
-  };
   return (
     <Box
       sx={(theme) => ({
@@ -105,17 +113,42 @@ const Contribute: React.FC = () => {
             Contribute&nbsp;
           </Typography>
           <Grid container spacing={12} justifyContent="center">
-            <Grid item xs={4}>
+            <Grid item xs={4} className="grid gap-y-2">
+              <input
+                type="file"
+                accept=".hbs"
+                style={{ display: "none" }}
+                ref={fileInput1}
+                onChange={(e) => handleFileChanges(e, setFile1Name)}
+              />
+              <input
+                type="file"
+                accept=".png, .jpg, .jpeg"
+                style={{ display: "none" }}
+                ref={fileInput2}
+                onChange={(e) => handleFileChanges(e, setFile2Name)}
+              />
               <Button
-                component="label"
-                role={undefined}
                 variant="contained"
-                tabIndex={-1}
-                startIcon={<CloudUploadIcon />}
-                fullWidth
+                onClick={() => fileInput1.current?.click()}
               >
-                Upload File
-                <VisuallyHiddenInput type="file" onChange={handleFileChange} />
+                Select Template File
+              </Button>
+              <span>{file1Name}</span>
+              <Button
+                variant="contained"
+                onClick={() => fileInput2.current?.click()}
+              >
+                Select Thumbnail File
+              </Button>
+              <span>{file2Name}</span>
+              <br />
+              <Button
+                variant="contained"
+                startIcon={<CloudUploadIcon />}
+                onClick={handleUpload}
+              >
+                Submit
               </Button>
             </Grid>
             <Grid item xs={4}>
