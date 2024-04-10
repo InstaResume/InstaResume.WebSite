@@ -25,7 +25,7 @@ public class TemplateService : ITemplateService
     public async Task<string> GetTemplateSource(string id)
     {
         var template = await _templateRepository.GetTemplateDataAsync(id);
-        return await _s3ConnectionProvider.GetContentFromFileFromS3Async(_bucketName, template.FileName);
+        return await _s3ConnectionProvider.GetContentFromFileFromS3Async(_bucketName, template.FileName + ".hbs");
     }
     
     public async Task<Stream> DownloadFileFromS3Async(string keyName)

@@ -187,11 +187,6 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
                     open={isDropdownOpen}
                     onClose={handleClose}
                   >
-                    <MenuItem onClick={handleClose} disableRipple>
-                      <FileCopy />
-                      My Resume
-                    </MenuItem>
-                    <Divider sx={{ my: 0.5 }} />
                     <MenuItem onClick={handleLogout} disableRipple>
                       <Logout />
                       Logout
