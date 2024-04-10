@@ -39,8 +39,10 @@ public class ConfigHelper : IConfigHelper
     
     public OpenAiConfig GetOpenAiConfig()
     {
-        var openAiConfig = new OpenAiConfig();
-        _configuration.GetSection(openAiConfig.ConfigKey).Bind(openAiConfig);
+        var openAiConfig = new OpenAiConfig
+        {
+            ApiKey = Environment.GetEnvironmentVariable("OPENAI_KEY") ?? ""
+        };
         return openAiConfig;
     }
     
