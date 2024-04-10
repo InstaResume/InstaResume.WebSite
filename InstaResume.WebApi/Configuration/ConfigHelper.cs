@@ -46,8 +46,11 @@ public class ConfigHelper : IConfigHelper
     
     public AWSConfig GetAWSConfig()
     {
-        var awsConfig = new AWSConfig();
-        _configuration.GetSection(awsConfig.ConfigKey).Bind(awsConfig);
+        var awsConfig = new AWSConfig
+        {
+            AccessKey = Environment.GetEnvironmentVariable("AWS_ACCESS_KEY") ?? "",
+            SecretKey = Environment.GetEnvironmentVariable("AWS_SECRET_KEY") ?? "",
+        };
         return awsConfig;
     }
 }

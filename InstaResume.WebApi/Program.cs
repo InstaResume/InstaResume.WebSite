@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using System.Text;
+using dotenv.net;
 using InstaResume.WebSite.Configuration;
 using InstaResume.WebSite.Configuration.Interface;
 using InstaResume.WebSite.ConnectionProvider;
@@ -73,6 +74,9 @@ builder.Services.AddSingleton<IDescriptionGeneratorService, DescriptionGenerator
 builder.Services.AddSingleton<IS3ConnectionProvider, S3ConnectionProvider>();
 builder.Services.AddSingleton<ITemplateService, TemplateService>();
 builder.Services.AddSingleton<ITemplateRepository, TemplateRepository>();
+
+// Load the .env file
+DotEnv.Load();
 
 var app = builder.Build();
 
