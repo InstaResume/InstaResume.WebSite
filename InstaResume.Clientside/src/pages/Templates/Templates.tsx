@@ -156,8 +156,8 @@ const Contribute: React.FC = () => {
                 sx={{
                   height: 280,
                   width: 200,
-                  backgroundColor: (theme) =>
-                    theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+                  backgroundImage: `url(${t.thumbnailUrl})`,
+                  backgroundSize: "cover",
                 }}
               />
               <Link to={`/resume-creation?templateId=${t.id}`}>
