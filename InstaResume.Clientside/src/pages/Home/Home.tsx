@@ -6,10 +6,14 @@ import {
   Typography,
   alpha,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
+import imgUrl from "../../assets/resume.png";
 import { Link } from "react-router-dom";
 
 const Home: React.FC = () => {
+  useEffect(() => {
+    document.getElementById("image")!.style.backgroundImage = `url(${imgUrl})`;
+  }, []);
   return (
     <Box
       sx={(theme) => ({
@@ -87,10 +91,6 @@ const Home: React.FC = () => {
             alignSelf: "center",
             height: { xs: 200, sm: 700 },
             width: "100%",
-            backgroundImage:
-              theme.palette.mode === "light"
-                ? 'url("/static/images/templates/templates-images/hero-light.png")'
-                : 'url("/static/images/templates/templates-images/hero-dark.png")',
             backgroundSize: "cover",
             borderRadius: "10px",
             outline: "1px solid",
